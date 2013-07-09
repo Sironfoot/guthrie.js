@@ -30,19 +30,17 @@ if ('development' == app.get('env')) {
 }
 
 // Map routes
-//var router = new gu.Router(app, { rootDir: __dirname });
+var router = new gu.Router(app, { rootDir: __dirname });
 
-//router.mapRoute('/', { controller: 'home', action: 'index' });
-//router.mapRoute('/products/:id/:name', { controller: 'products', action: 'show' });
-//router.mapRoute('/:controller/:action?');
+router.mapRoute('/', { controller: 'home', action: 'index' });
+router.mapRoute('/products/:id/:name', { controller: 'products', action: 'show' });
+router.mapRoute('/:controller/:action?/:id?');
 
-app.get('/:controller/:action?/:id?', function(req, res) {
-	res.end('controller: ' + req.params.controller +
-		', action: ' + req.params.action +
-		', id: ' + req.params.id);
-});
-//app.get('/users', user.list);
+var adminArea = router.createArea('admin', { dir: 'areas/admin' });
+adminArea.mapRoute('/admin/:controller/:action?/:id?');
 
+
+// Fire up server
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });

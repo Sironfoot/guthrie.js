@@ -1,4 +1,4 @@
-var gu = require('guthrie');
+var gu = require('../..');
 var baseController = require('./baseController.js');
 
 var adminController = new gu.Controller({

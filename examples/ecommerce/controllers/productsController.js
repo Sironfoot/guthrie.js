@@ -1,4 +1,4 @@
-var gu = require('guthrie');
+var gu = require('../..');
 
 var productsController = new gu.Controller();
 
