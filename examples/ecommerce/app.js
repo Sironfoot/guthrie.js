@@ -9,7 +9,7 @@ var express = require('express')
   , http = require('http')
   , path = require('path');
   
-var gu = require('guthrie');
+//var gu = require('guthrie');
 
 var app = express();
 
@@ -30,13 +30,17 @@ if ('development' == app.get('env')) {
 }
 
 // Map routes
-var router = new gu.Router(app, { rootDir: __dirname });
+//var router = new gu.Router(app, { rootDir: __dirname });
 
-router.mapRoute('/', { controller: 'home', action: 'index' });
-router.mapRoute('/products/:id/:name', { controller: 'products', action: 'show' });
-router.mapRoute('/:controller/:action?');
+//router.mapRoute('/', { controller: 'home', action: 'index' });
+//router.mapRoute('/products/:id/:name', { controller: 'products', action: 'show' });
+//router.mapRoute('/:controller/:action?');
 
-//app.get('/', routes.index);
+app.get('/:controller/:action?/:id?', function(req, res) {
+	res.end('controller: ' + req.params.controller +
+		', action: ' + req.params.action +
+		', id: ' + req.params.id);
+});
 //app.get('/users', user.list);
 
 http.createServer(app).listen(app.get('port'), function(){
