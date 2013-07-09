@@ -1,4 +1,5 @@
 var gu = require('guthrie');
+var baseController = require('./baseController.js');
 
 var adminController = new gu.Controller({
 	filters: [
@@ -7,6 +8,8 @@ var adminController = new gu.Controller({
 		}
 	]
 });
+
+adminController.prototype = baseController;
 
 // PATH: /admin
 adminController.index = {
