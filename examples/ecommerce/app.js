@@ -8,6 +8,8 @@ var express = require('express')
   , user = require('./routes/user')
   , http = require('http')
   , path = require('path');
+  
+var gu = require('guthrie');
 
 var app = express();
 
@@ -27,8 +29,15 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/', routes.index);
-app.get('/users', user.list);
+// Map routes
+var router = new gu.Router(app, { rootDir: __dirname });
+
+router.mapRoute('/', { controller: 'home', action: 'index' });
+router.mapRoute('/products/:id/:name', { controller: 'products', action: 'show' });
+router.mapRoute('/:controller/:action?');
+
+//app.get('/', routes.index);
+//app.get('/users', user.list);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
