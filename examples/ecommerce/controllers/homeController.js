@@ -1,4 +1,4 @@
-var gu = require('guthrie');
+var gu = require('../..');
 
 var homeController = new gu.Controller();
 

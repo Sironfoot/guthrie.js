@@ -30,10 +30,14 @@ if ('development' == app.get('env')) {
 }
 
 // Map routes
-var router = new gu.Router(app, { rootDir: __dirname });
+var router = new gu.Router(app, __dirname, {
+    controllersDir: path.join(__dirname, 'controllers'),
+    viewsDir: path.join(__dirname, 'views')
+});
 
 router.mapRoute('/', { controller: 'home', action: 'index' });
 router.mapRoute('/products/:id/:name', { controller: 'products', action: 'show' });
+//router.mapRoute('/test/:action', { controller: 'test' });
 router.mapRoute('/:controller/:action?/:id?');
 
 var adminArea = router.createArea('admin', { dir: 'areas/admin' });
