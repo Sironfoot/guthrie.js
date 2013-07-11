@@ -13,10 +13,6 @@ var Router = function(app, rootDir, options) {
     this.viewsDir = options.viewsDir || path.join(this.rootDir, 'views');
     
     this.controllers = {};
-    
-    this.app.use(function(req, res, next) {
-        next();
-    });
 };
 
 Router.prototype.mapRoute = function(route, routeParams) {
@@ -77,7 +73,7 @@ Router.prototype.mapRoute = function(route, routeParams) {
         
         // Recursively run this controller and all base controller filters
 		var filteredController = controller;
-		while (filteredController) {
+        while (filteredController) {
 	        (filteredController.filters || []).forEach(function(filter) {
 		    	filter(req, res, next); 
 	        });
@@ -130,6 +126,6 @@ var Controller = function(options) {
 	this.filters = options.filters || [];
 };
 
-Controller.prototype = new EventEmitter();
+Controller.prototype = Object.create(EventEmitter.prototype);
 
 exports.Controller = Controller;
