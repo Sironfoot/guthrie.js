@@ -9,7 +9,7 @@ var express = require('express')
   , http = require('http')
   , path = require('path');
   
-//var gu = require('guthrie');
+var gu = require('../..');
 
 var app = express();
 
@@ -40,8 +40,8 @@ router.mapRoute('/products/:id/:name', { controller: 'products', action: 'show' 
 //router.mapRoute('/test/:action', { controller: 'test' });
 router.mapRoute('/:controller/:action?/:id?');
 
-var adminArea = router.createArea('admin', { dir: 'areas/admin' });
-adminArea.mapRoute('/admin/:controller/:action?/:id?');
+//var adminArea = router.createArea('admin', { dir: 'areas/admin' });
+//adminArea.mapRoute('/admin/:controller/:action?/:id?');
 
 
 // Fire up server

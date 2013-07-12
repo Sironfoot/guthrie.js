@@ -1,4 +1,4 @@
-var gu = require('../..');
+var gu = require('../../..');
 
 var productsController = new gu.Controller();
 
@@ -22,10 +22,10 @@ productsController.show = {
 productsController.edit = {
 
 	filters: [
-		function isAuthorised(req, res, next) {
-			next();
+		function isAuthorised(req, res) {
+
 		}
-	]
+	],
 	
 	GET: function(req, res) {
 		res.view();

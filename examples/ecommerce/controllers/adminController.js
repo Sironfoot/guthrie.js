@@ -1,10 +1,10 @@
-var gu = require('../..');
+var gu = require('../../..');
 var baseController = require('./baseController.js');
 
 var adminController = new gu.Controller({
 	filters: [
-		function isAdmin(req, res, next) {
-			next();
+		function isAdmin(req, res) {
+
 		}
 	]
 });

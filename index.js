@@ -52,6 +52,7 @@ Router.prototype.mapRoute = function(route, routeParams) {
             
             if (!controller) {
                 next();
+                return;
             }
         }
         
@@ -61,6 +62,7 @@ Router.prototype.mapRoute = function(route, routeParams) {
             
             if (!action) {
                 next();
+                return;
             }
         }
         
@@ -69,17 +71,18 @@ Router.prototype.mapRoute = function(route, routeParams) {
         
         if (!action[verb]) {
 	        next();
+	        return;
         }
         
         // Recursively run this controller and all base controller filters
 		var filteredController = controller;
         while (filteredController) {
 	        (filteredController.filters || []).forEach(function(filter) {
-		    	filter(req, res, next); 
+		    	filter(req, res, next);
 	        });
 	        
 	        filteredController = filteredController.prototype;
-        }  
+        }
         
         // ...then run the action method's filters
         (action.filters || []).forEach(function(filter) {
@@ -92,7 +95,7 @@ Router.prototype.mapRoute = function(route, routeParams) {
         res.render = function() {
 	      	controller.emit('resultExecuting', req, res, next);
 	      	render.apply(this, arguments);
-	      	controller.emit('resultExecuted', req, res, next);
+	      	//controller.emit('resultExecuted', req, res, next);
         };
         
         res.view = function(locals, callback) {
@@ -107,7 +110,7 @@ Router.prototype.mapRoute = function(route, routeParams) {
         action[verb](req, res, next);
         
         // emit after action executed
-        controller.emit('actionExecuted');
+        controller.emit('actionExecuted', req, res, next);
     });
 };
 
