@@ -22,14 +22,12 @@ homeController.on('actionExecuted', function(req, res) {
     res.write('In homeController.actionExecuted\n');
 });
 
-// Prob not possible
 homeController.on('resultExecuting', function(req, res) {
-    res.write('In homeController.resultExecuting');
+    res.write('In homeController.resultExecuting\n');
 });
 
-// Prob not possible
 homeController.on('resultExecuted', function(req, res) {
-    res.write('In homeController.resultExecuted');
+    res.write('In homeController.resultExecuted\n');
 });
 
 // PATH: /

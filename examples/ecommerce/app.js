@@ -29,6 +29,10 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
+app.get('/Testing', function(req, res) {
+    res.end('hello world');
+});
+
 // Map routes
 var router = new gu.Router(app, __dirname, {
     controllersDir: path.join(__dirname, 'controllers'),

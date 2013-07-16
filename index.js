@@ -42,13 +42,17 @@ Router.prototype.mapRoute = function(route, routeParams) {
     
         if (!controller) {
         	controllerName = req.params.controller;
-            var pathToController = path.join(router.controllersDir, rcontrollerName + 'Controller.js');
+            var pathToController = path.join(router.controllersDir, controllerName + 'Controller.js');
+            
+            console.log(controllerName, pathToController);
             
             if (!router.controllers[pathToController]) {
                 router.controllers[pathToController] = require(pathToController);
             }
         
             controller = router.controllers[pathToController];
+            
+            console.log(controller);
             
             if (!controller) {
                 next();
@@ -74,43 +78,81 @@ Router.prototype.mapRoute = function(route, routeParams) {
 	        return;
         }
         
-        // Recursively run this controller and all base controller filters
-		var filteredController = controller;
-        while (filteredController) {
-	        (filteredController.filters || []).forEach(function(filter) {
-		    	filter(req, res, next);
-	        });
-	        
-	        filteredController = filteredController.prototype;
+        // Recursively run this controller and all base controller filters/events
+        var controllers = [];
+        var currentController = controller;
+        while (currentController) {
+            controllers.push(currentController);
+            currentController = currentController.prototype;
         }
         
-        // ...then run the action method's filters
+        
+        // emit controller's actionExecuting event
+        controllers.forEach(function(controller) {
+            controller.emit('actionExecuting', req, res, next);
+        });
+            
+        // run controller's filters
+        controllers.forEach(function(controller) {
+	        (controller.filters || []).forEach(function(filter) {
+		    	filter(req, res, next);
+	        });
+        });
+        
+        // run the action method's filters
         (action.filters || []).forEach(function(filter) {
 	       filter(req, res, next); 
         });
         
-        // Helper view method for response object
+        // Override common response object functions that end HTTP request processing
         var render = res.render;
+        var end = res.end;
+        var send = res.send;
         
         res.render = function() {
-	      	controller.emit('resultExecuting', req, res, next);
+            controllers.forEach(function(controller) {
+                controller.emit('actionExecuted', req, res, next);
+            });
+            
+            controllers.forEach(function(controller) {
+    	      	controller.emit('resultExecuting', req, res, next);
+	      	});
+	      	
 	      	render.apply(this, arguments);
-	      	//controller.emit('resultExecuted', req, res, next);
         };
         
+        res.end = function() {
+            controllers.forEach(function(controller) {
+                controller.emit('actionExecuted', req, res, next);
+            });
+            
+            controllers.forEach(function(controller) {
+    	      	controller.emit('resultExecuting', req, res, next);
+	      	});
+            
+            end.apply(this, arguments);
+        };
+        
+        res.send = function() {
+            controllers.forEach(function(controller) {
+                controller.emit('actionExecuted', req, res, next);
+            });
+            
+            controllers.forEach(function(controller) {
+    	      	controller.emit('resultExecuting', req, res, next);
+	      	});
+            
+            send.apply(this, arguments);
+        };
+        
+        // Helper method, calls render but pre-populates the view path
         res.view = function(locals, callback) {
 			var view = path.join(router.viewsDir, controllerName, actionName);
 	    	res.render(view, locals, callback);
         };
         
-        // emit before action executing
-        controller.emit('actionExecuting', req, res, next);
-        
-        // run action
+        // finally run action
         action[verb](req, res, next);
-        
-        // emit after action executed
-        controller.emit('actionExecuted', req, res, next);
     });
 };
 
