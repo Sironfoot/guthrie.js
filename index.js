@@ -44,15 +44,11 @@ Router.prototype.mapRoute = function(route, routeParams) {
         	controllerName = req.params.controller;
             var pathToController = path.join(router.controllersDir, controllerName + 'Controller.js');
             
-            console.log(controllerName, pathToController);
-            
             if (!router.controllers[pathToController]) {
                 router.controllers[pathToController] = require(pathToController);
             }
         
             controller = router.controllers[pathToController];
-            
-            console.log(controller);
             
             if (!controller) {
                 next();
@@ -61,7 +57,7 @@ Router.prototype.mapRoute = function(route, routeParams) {
         }
         
         if (!action) {
-        	actionName = req.params.action;
+        	actionName = req.params.action || 'index';
             action = controller[actionName];
             
             if (!action) {
@@ -172,5 +168,7 @@ var Controller = function(options) {
 };
 
 Controller.prototype = Object.create(EventEmitter.prototype);
+
+
 
 exports.Controller = Controller;

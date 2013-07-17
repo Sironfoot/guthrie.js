@@ -43,7 +43,7 @@ homeController.index = {
     ],
 
     GET: function(req, res) {
-        res.end('In homeController.index.GET');
+        res.end('In homeController.index.GET\n');
     }
 };
 
