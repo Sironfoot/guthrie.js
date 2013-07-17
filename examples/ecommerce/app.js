@@ -30,7 +30,7 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/Testing', function(req, res) {
-    res.end('hello world');
+    res.render('Testing', { test: 'test' });
 });
 
 // Map routes

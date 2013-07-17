@@ -4,10 +4,10 @@ var baseController = require('./baseController.js');
 var homeController = new gu.Controller({
     filters: [
         function filter1(req, res) {
-            res.write('In homeController.filter1\n');
+            console.log('In homeController.filter1');
         },
         function filter2(req, res) {
-            res.write('In homeController.filter2\n');
+            console.log('In homeController.filter2');
         }
     ]
 });
@@ -15,19 +15,19 @@ var homeController = new gu.Controller({
 homeController.prototype = baseController;
 
 homeController.on('actionExecuting', function(req, res) {
-    res.write('In homeController.actionExecuting\n');
+    console.log('In homeController.actionExecuting');
 });
 
 homeController.on('actionExecuted', function(req, res) {
-    res.write('In homeController.actionExecuted\n');
+    console.log('In homeController.actionExecuted');
 });
 
 homeController.on('resultExecuting', function(req, res) {
-    res.write('In homeController.resultExecuting\n');
+    console.log('In homeController.resultExecuting');
 });
 
 homeController.on('resultExecuted', function(req, res) {
-    res.write('In homeController.resultExecuted\n');
+    console.log('In homeController.resultExecuted');
 });
 
 // PATH: /
@@ -35,15 +35,15 @@ homeController.index = {
 
     filters: [
         function actionFilter1(req, res) {
-            res.write('In homeController.actionFilter1\n');
+            console.log('In homeController.actionFilter1');
         },
         function actionFilter2(req, res) {
-            res.write('In homeController.actionFilter2\n');
+            console.log('In homeController.actionFilter2');
         }
     ],
 
     GET: function(req, res) {
-        res.end('In homeController.index.GET\n');
+        res.view();
     }
 };
 

@@ -3,28 +3,28 @@ var gu = require('../../..');
 var baseController = new gu.Controller({
     filters: [
         function baseFilter1(req, res) {
-            res.write('In baseController.baseFilter1\n');
+            console.log('In baseController.baseFilter1');
         },
         function baseFilter2(req, res) {
-            res.write('In baseController.baseFilter2\n');
+            console.log('In baseController.baseFilter2');
         }
     ]
 });
 
 baseController.on('actionExecuting', function(req, res) {
-    res.write('In baseController.actionExecuting\n');
+    console.log('In baseController.actionExecuting');
 });
 
 baseController.on('actionExecuted', function(req, res) {
-    res.write('In baseController.actionExecuted\n');
+    console.log('In baseController.actionExecuted');
 });
 
 baseController.on('resultExecuting', function(req, res) {
-    res.write('In baseController.resultExecuting\n');
+    console.log('In baseController.resultExecuting');
 });
 
 baseController.on('resultExecuted', function(req, res) {
-    res.write('In baseController.resultExecuted\n');
+    console.log('In baseController.resultExecuted');
 });
 
 module.exports = baseController;

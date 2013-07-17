@@ -82,7 +82,6 @@ Router.prototype.mapRoute = function(route, routeParams) {
             currentController = currentController.prototype;
         }
         
-        
         // emit controller's actionExecuting event
         controllers.forEach(function(controller) {
             controller.emit('actionExecuting', req, res, next);
@@ -103,8 +102,7 @@ Router.prototype.mapRoute = function(route, routeParams) {
         // Override common response object functions that end HTTP request processing
         var render = res.render;
         var end = res.end;
-        var send = res.send;
-        
+    
         res.render = function() {
             controllers.forEach(function(controller) {
                 controller.emit('actionExecuted', req, res, next);
@@ -112,39 +110,23 @@ Router.prototype.mapRoute = function(route, routeParams) {
             
             controllers.forEach(function(controller) {
     	      	controller.emit('resultExecuting', req, res, next);
-	      	});
-	      	
-	      	render.apply(this, arguments);
-        };
-        
-        res.end = function() {
-            controllers.forEach(function(controller) {
-                controller.emit('actionExecuted', req, res, next);
-            });
-            
-            controllers.forEach(function(controller) {
-    	      	controller.emit('resultExecuting', req, res, next);
-	      	});
-            
-            end.apply(this, arguments);
-        };
-        
-        res.send = function() {
-            controllers.forEach(function(controller) {
-                controller.emit('actionExecuted', req, res, next);
-            });
-            
-            controllers.forEach(function(controller) {
-    	      	controller.emit('resultExecuting', req, res, next);
-	      	});
-            
-            send.apply(this, arguments);
+          	});
+          	
+          	render.apply(this, arguments);
         };
         
         // Helper method, calls render but pre-populates the view path
         res.view = function(locals, callback) {
 			var view = path.join(router.viewsDir, controllerName, actionName);
 	    	res.render(view, locals, callback);
+        };
+        
+        res.end = function() {
+            end.apply(this, arguments);
+            
+            controllers.forEach(function(controller) {
+    	      	controller.emit('resultExecuted', req, res, next);
+	      	});
         };
         
         // finally run action
