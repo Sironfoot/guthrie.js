@@ -47,4 +47,12 @@ homeController.index = {
     }
 };
 
+// PATH: /home/test
+homeController.test = {
+    
+    GET: function(req, res) {
+        res.view();
+    }
+}
+
 module.exports = homeController;
