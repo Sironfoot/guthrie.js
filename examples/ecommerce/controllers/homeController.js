@@ -28,6 +28,8 @@ homeController.on('resultExecuting', function(req, res) {
 
 homeController.on('resultExecuted', function(req, res) {
     console.log('In homeController.resultExecuted');
+    
+    console.log('AuthUser is: ' + this.authUser);
 });
 
 // PATH: /
@@ -43,6 +45,9 @@ homeController.index = {
     ],
 
     GET: function(req, res) {
+    
+        console.log(this.prototype.authUser);
+    
         res.view();
     }
 };

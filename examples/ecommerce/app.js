@@ -41,7 +41,6 @@ var router = new gu.Router(app, __dirname, {
 
 router.mapRoute('/', { controller: 'home', action: 'index' });
 router.mapRoute('/products/:id/:name', { controller: 'products', action: 'show' });
-//router.mapRoute('/test/:action', { controller: 'test' });
 router.mapRoute('/:controller/:action?/:id?');
 
 //var adminArea = router.createArea('admin', { dir: 'areas/admin' });
