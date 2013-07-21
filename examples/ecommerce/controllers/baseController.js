@@ -1,30 +1,36 @@
 var gu = require('../../..');
 
-var baseController = new gu.Controller({
+var BaseController = gu.controller.create({
     filters: [
-        function baseFilter1(req, res) {
+        function baseFilter1(req, res, next) {
             console.log('In baseController.baseFilter1');
+            next();
         },
-        function baseFilter2(req, res) {
+        function baseFilter2(req, res, next) {
             console.log('In baseController.baseFilter2');
+            next();
         }
     ]
 });
 
-baseController.on('actionExecuting', function(req, res) {
+BaseController.on('actionExecuting', function(req, res, next) {
     console.log('In baseController.actionExecuting');
+    next();
 });
 
-baseController.on('actionExecuted', function(req, res) {
+BaseController.on('actionExecuted', function(req, res, next) {
     console.log('In baseController.actionExecuted');
+    next();
 });
 
-baseController.on('resultExecuting', function(req, res) {
+BaseController.on('resultExecuting', function(req, res, next) {
     console.log('In baseController.resultExecuting');
+    next();
 });
 
-baseController.on('resultExecuted', function(req, res) {
+BaseController.on('resultExecuted', function(req, res, next) {
     console.log('In baseController.resultExecuted');
+    next();
 });
 
-module.exports = baseController;
+module.exports = BaseController;
