@@ -13,8 +13,6 @@ var baseController = new gu.Controller({
 
 baseController.on('actionExecuting', function(req, res) {
     console.log('In baseController.actionExecuting');
-    
-    this.authUser = 'Dominic Pettifer';
 });
 
 baseController.on('actionExecuted', function(req, res) {

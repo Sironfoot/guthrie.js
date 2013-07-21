@@ -1,3 +1,4 @@
+/*
 var gu = require('../../..');
 
 var productsController = new gu.Controller();
@@ -45,3 +46,4 @@ productsController.edit = {
 };
 
 module.exports = productsController;
+*/

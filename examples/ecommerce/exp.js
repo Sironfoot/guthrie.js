@@ -3,9 +3,11 @@
 var events = require('events');
 var util = require('util');
 
-var allowedEvents = [ 'actionExecuting', 'actionExecuted', 'resultExecuting', 'resultExecuted' ];
+// Controller code
+var Controller = {};
 
-function createController(BaseController, config) {
+
+Controller.createController = function(BaseController, config) {
 
     return (function(BaseController, config) {
     
@@ -45,11 +47,9 @@ function createController(BaseController, config) {
                         controller[key] = actionMethod;
                     }
                 });
-                
-                allowedEvents.forEach(function(allowedEvent) {
-                    baseController.listeners(allowedEvent).forEach(function(listener) {
-                        controller.on(allowedEvent, listener);
-                    });
+
+                baseController.listeners('request').forEach(function(listener) {
+                    controller.on('request', listener);
                 });
             }
         };
@@ -65,12 +65,69 @@ function createController(BaseController, config) {
 };
 
 
-exports.create = function(config) {
-    return createController(null, config);
+Controller.create = function(config) {
+    return Controller.createController(null, config);
 };
 
 
-exports.inherit = function(BaseController, config) {
-    return createController(BaseController, config);
+Controller.inherit = function(BaseController, config) {
+    return Controller.createController(BaseController, config);
 };
 
+
+
+var BaseController = Controller.create({
+    filters: [
+        function(req, res, next) {
+            console.log('Filter in BaseController');
+        }
+    ]
+});
+
+BaseController.on('request', function() {
+    console.log('request event fired in BaseController');
+});
+
+
+
+
+
+var HomeController = Controller.inherit(BaseController, {
+    filters: [
+        function(req, res, next) {
+            console.log('Filter in HomeController');
+        }
+    ]
+});
+
+HomeController.on('request', function() {
+    console.log('request event fired in HomeController');
+});
+
+HomeController.index = {
+
+    filters: [
+        function actionFilter1(req, res) {
+            console.log('In homeController.actionFilter1');
+        },
+        function actionFilter2(req, res) {
+            console.log('In homeController.actionFilter2');
+        }
+    ],
+
+    GET: function(req, res) {
+        console.log('In index.GET for HomeController');
+    }
+};
+
+var homeController = new HomeController();
+
+
+
+homeController._filters.forEach(function(filter) {
+    filter.call(homeController);
+});
+
+homeController.emit('request');
+
+homeController.index.GET();

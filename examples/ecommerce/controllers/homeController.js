@@ -1,44 +1,50 @@
 var gu = require('../../..');
-var baseController = require('./baseController.js');
+var BaseController = require('./baseController.js');
 
-var homeController = new gu.Controller({
+var HomeController = gu.controller.inherit(BaseController, {
     filters: [
-        function filter1(req, res) {
+        function filter1(req, res, next) {
             console.log('In homeController.filter1');
+            next();
         },
-        function filter2(req, res) {
+        function filter2(req, res, next) {
             console.log('In homeController.filter2');
+            next();
         }
     ]
 });
 
-homeController.prototype = baseController;
-
-homeController.on('actionExecuting', function(req, res) {
+HomeController.on('actionExecuting', function(req, res, next) {
     console.log('In homeController.actionExecuting');
+    next();
 });
 
-homeController.on('actionExecuted', function(req, res) {
+HomeController.on('actionExecuted', function(req, res, next) {
     console.log('In homeController.actionExecuted');
+    next();
 });
 
-homeController.on('resultExecuting', function(req, res) {
+HomeController.on('resultExecuting', function(req, res, next) {
     console.log('In homeController.resultExecuting');
+    next();
 });
 
-homeController.on('resultExecuted', function(req, res) {
+HomeController.on('resultExecuted', function(req, res, next) {
     console.log('In homeController.resultExecuted');
+    next();
 });
 
 // PATH: /
-homeController.index = {
+HomeController.index = {
 
     filters: [
-        function actionFilter1(req, res) {
+        function actionFilter1(req, res, next) {
             console.log('In homeController.actionFilter1');
+            next();
         },
-        function actionFilter2(req, res) {
+        function actionFilter2(req, res, next) {
             console.log('In homeController.actionFilter2');
+            next();
         }
     ],
 
@@ -48,11 +54,11 @@ homeController.index = {
 };
 
 // PATH: /home/test
-homeController.test = {
+HomeController.test = {
     
     GET: function(req, res) {
         res.view();
     }
 }
 
-module.exports = homeController;
+module.exports = HomeController;

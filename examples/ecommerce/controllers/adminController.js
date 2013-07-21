@@ -1,3 +1,4 @@
+/*
 var gu = require('../../..');
 var baseController = require('./baseController.js');
 
@@ -28,3 +29,4 @@ adminController.orders = {
 };
 
 module.exports = adminController;
+*/
