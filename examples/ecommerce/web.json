@@ -1,0 +1,12 @@
+{
+    connectionStrings: [
+        { name: 'mongo', connectionString: 'localhost:2000' },
+        { name: 'redis', connectionString: 'redis:3000' }
+    ],
+    
+    appSettings: [
+        { name: 'fromEmail', value: 'test@example.com' },
+        { name: 'facebookId', value: '12345678' },
+        { name: 'testAccount', value: 'test@test' }
+    ]
+}

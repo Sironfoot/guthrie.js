@@ -23,8 +23,8 @@ ProductsController.show = {
 ProductsController.edit = {
 
 	filters: [
-		function isAuthorised(req, res) {
-
+		function isAuthorised(req, res, next) {
+            next();
 		}
 	],
 	

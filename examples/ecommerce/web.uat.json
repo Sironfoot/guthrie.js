@@ -1,0 +1,10 @@
+{
+    connectionStrings: [
+        { name: 'mongo', connectionString: 'uatMongo:2000' },
+        { name: 'redis', connectionString: 'uatredis:3000' }
+    ],
+    
+    appSettings: [
+        { name: 'testAccount', value: 'uat@uat' }
+    ]
+}
