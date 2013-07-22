@@ -5,6 +5,8 @@ var HomeController = gu.controller.inherit(BaseController, {
     filters: [
         function filter1(req, res, next) {
             console.log('In homeController.filter1');
+            
+            //setTimeout(next, 2000);
             next();
         },
         function filter2(req, res, next) {
@@ -29,9 +31,8 @@ HomeController.on('resultExecuting', function(req, res, next) {
     next();
 });
 
-HomeController.on('resultExecuted', function(req, res, next) {
+HomeController.on('resultExecuted', function(req, res) {
     console.log('In homeController.resultExecuted');
-    next();
 });
 
 // PATH: /

@@ -28,9 +28,8 @@ BaseController.on('resultExecuting', function(req, res, next) {
     next();
 });
 
-BaseController.on('resultExecuted', function(req, res, next) {
+BaseController.on('resultExecuted', function(req, res) {
     console.log('In baseController.resultExecuted');
-    next();
 });
 
 module.exports = BaseController;
