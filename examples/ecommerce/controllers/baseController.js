@@ -4,11 +4,11 @@ var BaseController = gu.controller.create({
     filters: [
         function baseFilter1(req, res, next) {
             console.log('In baseController.baseFilter1');
-            next();
+            setTimeout(next, 100);
         },
         function baseFilter2(req, res, next) {
             console.log('In baseController.baseFilter2');
-            next();
+            setTimeout(next, 100);
         }
     ]
 });
@@ -18,17 +18,17 @@ BaseController.on('actionExecuting', function(req, res, next) {
     
     this.viewbag(res).authUser = 'Dominic Pettifer';
     
-    next();
+    setTimeout(next, 100);
 });
 
 BaseController.on('actionExecuted', function(req, res, next) {
     console.log('In baseController.actionExecuted');
-    next();
+    setTimeout(next, 100);
 });
 
 BaseController.on('resultExecuting', function(req, res, next) {
     console.log('In baseController.resultExecuting');
-    next();
+    setTimeout(next, 100);
 });
 
 BaseController.on('resultExecuted', function(req, res) {

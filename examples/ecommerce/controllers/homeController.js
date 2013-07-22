@@ -5,28 +5,28 @@ var HomeController = gu.controller.inherit(BaseController, {
     filters: [
         function filter1(req, res, next) {
             console.log('In homeController.filter1');
-            next();
+            setTimeout(next, 100);
         },
         function filter2(req, res, next) {
             console.log('In homeController.filter2');
-            next();
+            setTimeout(next, 100);
         }
     ]
 });
 
 HomeController.on('actionExecuting', function(req, res, next) {
     console.log('In homeController.actionExecuting');
-    next();
+    setTimeout(next, 100);
 });
 
 HomeController.on('actionExecuted', function(req, res, next) {
     console.log('In homeController.actionExecuted');
-    next();
+    setTimeout(next, 100);
 });
 
 HomeController.on('resultExecuting', function(req, res, next) {
     console.log('In homeController.resultExecuting');
-    next();
+    setTimeout(next, 100);
 });
 
 HomeController.on('resultExecuted', function(req, res) {
@@ -39,11 +39,11 @@ HomeController.index = {
     filters: [
         function actionFilter1(req, res, next) {
             console.log('In homeController.actionFilter1');
-            next();
+            setTimeout(next, 100);
         },
         function actionFilter2(req, res, next) {
             console.log('In homeController.actionFilter2');
-            next();
+            setTimeout(next, 100);
         }
     ],
 
@@ -56,7 +56,7 @@ HomeController.index = {
 HomeController.test = {
     
     GET: function(req, res) {
-        res.view();
+        res.json(200, { user: 'Domdom' });
     }
 }
 
