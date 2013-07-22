@@ -31,9 +31,6 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/Testing', function(req, res) {
-    res.render('Testing', { test: 'test' });
-});
 
 // Map routes
 var router = new gu.Router(app, __dirname, {

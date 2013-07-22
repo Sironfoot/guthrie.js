@@ -1,10 +1,10 @@
-/*
 var gu = require('../../..');
+var BaseController = require('./baseController.js');
 
-var productsController = new gu.Controller();
+var ProductsController = gu.controller.inherit(BaseController);
 
 // PATH: /products
-productsController.index = {
+ProductsController.index = {
 
 	GET: function(req, res) {
 		res.view();
@@ -12,7 +12,7 @@ productsController.index = {
 };
 
 // PATH: /products/:id/:title
-productsController.show = {
+ProductsController.show = {
 
 	GET: function(req, res) {
 		res.view();
@@ -20,7 +20,7 @@ productsController.show = {
 };
 
 // PATH: /products/edit/:id
-productsController.edit = {
+ProductsController.edit = {
 
 	filters: [
 		function isAuthorised(req, res) {
@@ -45,5 +45,4 @@ productsController.edit = {
 	}
 };
 
-module.exports = productsController;
-*/
+module.exports = ProductsController;
