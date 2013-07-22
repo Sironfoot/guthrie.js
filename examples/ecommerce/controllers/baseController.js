@@ -15,6 +15,9 @@ var BaseController = gu.controller.create({
 
 BaseController.on('actionExecuting', function(req, res, next) {
     console.log('In baseController.actionExecuting');
+    
+    this.viewbag(res).authUser = 'Dominic Pettifer';
+    
     next();
 });
 
