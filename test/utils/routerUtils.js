@@ -23,6 +23,7 @@ describe('routerUtils', function() {
                 'Controller.actionExecuted',
                 'BaseController.resultExecuting',
                 'Controller.resultExecuting',
+                'result',
                 'BaseController.resultExecuted',
                 'Controller.resultExecuted'
             ];
@@ -33,66 +34,66 @@ describe('routerUtils', function() {
                 filters: [
                     function(req, res, next) {
                         actualOrder.push('BaseController.filter1');
-                        next();
+                        setTimeout(next, 2);
                     },
                     function(req, res, next) {
                         actualOrder.push('BaseController.filter2');
-                        next();
+                        setTimeout(next, 2);
                     }
                 ]
             });
             
             BaseController.on('actionExecuting', function(req, res, next) {
                 actualOrder.push('BaseController.actionExecuting');
-                next();
+                setTimeout(next, 2);
             });
             
             BaseController.on('actionExecuted', function(req, res, next) {
                 actualOrder.push('BaseController.actionExecuted');
-                next();
+                setTimeout(next, 2);
             });
             
             BaseController.on('resultExecuting', function(req, res, next) {
                 actualOrder.push('BaseController.resultExecuting');
-                next();
+                setTimeout(next, 2);
             });
             
             BaseController.on('resultExecuted', function(req, res, next) {
                 actualOrder.push('BaseController.resultExecuted');
-                next();
+                setTimeout(next, 2);
             });
         
             var Controller = gu.controller.create({
                 filters: [
                     function(req, res, next) {
                         actualOrder.push('Controller.filter1');
-                        next();
+                        setTimeout(next, 2);
                     },
                     function(req, res, next) {
                         actualOrder.push('Controller.filter2');
-                        next();
+                        setTimeout(next, 2);
                     }
                 ]
             });
             
             Controller.on('actionExecuting', function(req, res, next) {
                 actualOrder.push('Controller.actionExecuting');
-                next();
+                setTimeout(next, 2);
             });
             
             Controller.on('actionExecuted', function(req, res, next) {
                 actualOrder.push('Controller.actionExecuted');
-                next();
+                setTimeout(next, 2);
             });
             
             Controller.on('resultExecuting', function(req, res, next) {
                 actualOrder.push('Controller.resultExecuting');
-                next();
+                setTimeout(next, 2);
             });
             
             Controller.on('resultExecuted', function(req, res, next) {
                 actualOrder.push('Controller.resultExecuted');
-                next();
+                setTimeout(next, 2);
             });
             
             Controller.actions = {
@@ -100,22 +101,32 @@ describe('routerUtils', function() {
                     filters: [
                         function(req, res, next) {
                             actualOrder.push('action.filter1');
-                            next();
+                            setTimeout(next, 2);
                         },
                         function(req, res, next) {
                             actualOrder.push('action.filter2');
-                            next();
+                            setTimeout(next, 2);
                         }
                     ],
                     GET: function(req, res) {
                         actualOrder.push('action');
+                        res.end();
                     }
                 }
             }
             
             var controller = new Controller();
             
-            routerUtils.executeController(controller, function() {
+            var req = {};
+            
+            var res = {};
+            res.end = function() {
+                actualOrder.push('result');
+            };
+            
+            var next = function() {};
+            
+            routerUtils.executeController(controller, req, res, next, function() {
             
                 expectedOrder.forEach(function(expectedMessage, index) {
                     var actualMessage = actualOrder[index];
@@ -126,8 +137,86 @@ describe('routerUtils', function() {
             });
         });
         
-        it('should allow action to call next()');
+        it('should not provide a next() middlewear callback if next is not called in action', function(done) {
+            var Controller = gu.controller.create();
+            
+            Controller.actions = {
+                index: {
+                    GET: function(req, res, next) {
+                        res.end();
+                    }
+                }
+            };
+            
+            var controller = new Controller();
+            
+            var req = {};
+            
+            var res = {};
+            res.next = function() {};
+            
+            var next = function() {};
+            
+            routerUtils.executeController(controller, req, res, next, function(next) {
+                assert.ok(!next, 'next middlewear should NOT be present');
+                done();
+            });
+        });
         
-        it('should allow any event or filter to call next()');
+        it('should allow action to call next()', function(done) {
+            var Controller = gu.controller.create();
+            
+            Controller.actions = {
+                index: {
+                    GET: function(req, res, next) {
+                        next();
+                    }
+                }
+            };
+            
+            var controller = new Controller();
+            
+            var req = {};
+            var res = {};
+            var next = function() {};
+            
+            routerUtils.executeController(controller, req, res, next, function(next) {
+                assert.ok(next, 'next middleware callback should be present');
+                done();
+            });
+        });
+        
+        it('should allow any event/filter to NOT call next() and prevent further processig', function(done) {
+            var Controller = gu.controller.create({
+                filters: [
+                    function(req, res, next) {
+                        res.end('I am ending this!');
+                    }
+                ]
+            });
+            
+            Controller.actions = {
+                index: {
+                    GET: function(req, res, next) {
+                        assert.ok(false, 'We should never reach this point');
+                    }
+                }
+            };
+            
+            var req = {};
+            
+            var res = {};
+            res.end = function() {};
+            
+            var next = function() {};
+            
+            var controller = new Controller();
+            
+            routerUtils.executeController(controller, req, res, next, function(next) {
+                assert.ok(!next, 'next middleware callback should not be present');
+                
+                done();
+            });
+        });
     });
 });
