@@ -3,8 +3,49 @@
 var assert = require('assert');
 var gu = require('../../');
 var routerUtils = require('../../lib/utils/routerUtils');
+var path = require('path');
 
 describe('routerUtils', function() {
+
+    describe('#resolveController()', function() {
+    
+        var controllersDir = path.join(__dirname, '..', 'controllers');
+        
+        it('should resolve and instantiate a controller', function() {
+            var app = {};
+            var controller = routerUtils.resolveController(app, controllersDir, 'home');
+            
+            assert.ok(controller, 'controller instance is missing');
+            
+            var controllerKeys = Object.keys(app.gu.controllers);
+            assert.equal(controllerKeys.length, 1, 'should only be one controller instance');
+            
+            var controllerKey = controllerKeys[0];
+            assert.equal(app.gu.controllers[controllerKey], controller, 'wrong controller instance');
+        });
+        
+        it('should only instantiate a single controller instance per app', function() {
+            var app = {};
+            var controller = routerUtils.resolveController(app, controllersDir, 'home');
+            var controllerAgain = routerUtils.resolveController(app, controllersDir, 'home');
+            
+            assert.equal(controller, controllerAgain, 'controller instances are not the same');
+            assert.equal(Object.keys(app.gu.controllers).length, 1, 'should only be one controller instance');
+        });
+        
+        it('should return different controller instances for different express app instances', function() {
+            var app1 = {};
+            var controller = routerUtils.resolveController(app1, controllersDir, 'home');
+            
+            var app2 = {};
+            var otherController = routerUtils.resolveController(app2, controllersDir, 'home');
+            
+            assert.notEqual(controller, otherController, 'controllers should not be the same instance');
+            
+            assert.equal(Object.keys(app1.gu.controllers).length, 1, 'app1 should only have one controller');
+            assert.equal(Object.keys(app2.gu.controllers).length, 1, 'app2 should only have one controller');
+        });
+    });
 
     describe('#executeController()', function() {
         it('should execute filters, events and actions sequentially and in the correct order', function(done) {
@@ -153,7 +194,7 @@ describe('routerUtils', function() {
             var req = {};
             
             var res = {};
-            res.next = function() {};
+            res.end = function() {};
             
             var next = function() {};
             
