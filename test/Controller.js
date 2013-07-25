@@ -7,22 +7,37 @@ describe('Controller', function() {
 
     describe('#create()', function() {
     
-        it('should set events', function(done) {
-            var Controller = gu.controller.create();
+        it('should set custom events', function(done) {
+        
+            var events = 0;
+        
+            var BaseController = gu.controller.create();
+            
+            BaseController.on('customEvent', function() {
+                events++;
+            });
+        
+            var Controller = gu.controller.inherit(BaseController);
             
             Controller.on('customEvent', function() {
+                events++;
+            });
+            
+            Controller.on('assertEvent', function() {
+                assert.equal(events, 2, 'should have called the 2 events but got ' + events);
                 done();
             });
             
             var controller = new Controller();
             controller.emit('customEvent');
+            controller.emit('assertEvent');
         });
     
         it('should set the express app', function(done) {
-        
+
             function testFunction() {
                 assert.ok(this.app, 'this.app variable should be present');
-                assert.equals(this.app, app, 'apps should be same object');
+                assert.equal(this.app, app, 'apps should be same object');
             }
         
             var app = {};
@@ -31,7 +46,7 @@ describe('Controller', function() {
             });
             
             Controller.on('customEvent', function() {
-                 testFunction();
+                 testFunction.call(this);
                  done();
             });
             
@@ -43,10 +58,12 @@ describe('Controller', function() {
             };
             
             var controller = new Controller(app);
-            controller.filters[0]();
-            controller.actions.index.filters[0]();
-            controller.actions.index.GET();
+            controller.filters[0].call(controller);
+            controller.actions.index.filters[0].call(controller);
+            controller.actions.index.GET.call(controller);
             controller.emit('customEvent');
+            
+            
         });
     
         describe('#filters', function() {
@@ -206,7 +223,7 @@ describe('Controller', function() {
             assert.ok(controller.actions.index.PUT, 'index.PUT is missing');
             assert.ok(controller.actions.index.DELETE, 'index.DELETE is missing');
             
-            assert.equal(controller.emitters('customEvent').length, 2, 'should be 2 events');
+            assert.equal(controller.listeners('customEvent').length, 2, 'should be 2 events');
         });
         
         it('should override BaseController actions with same name', function(done) {
@@ -259,13 +276,13 @@ describe('Controller', function() {
              };
              
              var controller = new Controller();
-             
-             controller.filters[0](null, res);
-             controller.actions.index.GET(null, res);
+                     
+             controller.filters[0].call(controller, null, res);
+             controller.actions.index.GET.call(controller, null, res);
              
              assert.ok(res.locals.viewbag, 'viewbag property is missing');
-             assert.equals(res.locals.viewbag.message1, 'Hello', 'viewbag.message1 is missing or wrong value');
-             assert.equals(res.locals.viewbag.message2, 'World', 'viewbag.message2 is missing or wrong value');
+             assert.equal(res.locals.viewbag.message1, 'Hello', 'viewbag.message1 is missing or wrong value');
+             assert.equal(res.locals.viewbag.message2, 'World', 'viewbag.message2 is missing or wrong value');
         });
     });
 });
