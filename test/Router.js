@@ -6,7 +6,7 @@ var gu = require('../');
 
 
 describe('Router', function() {
-    it('should set properties on express app instance', function(done) {
+    it('should set properties on express app instance', function() {
 
         var app = {};
         var rootDir = __dirname;

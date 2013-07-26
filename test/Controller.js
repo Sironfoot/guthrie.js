@@ -62,8 +62,6 @@ describe('Controller', function() {
             controller.actions.index.filters[0].call(controller);
             controller.actions.index.GET.call(controller);
             controller.emit('customEvent');
-            
-            
         });
     
         describe('#filters', function() {

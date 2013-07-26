@@ -51,12 +51,12 @@ describe('routerUtils', function() {
         it('should execute filters, events and actions sequentially and in the correct order', function(done) {
         
             var expectedOrder = [
+                'BaseController.actionExecuting',
+                'Controller.actionExecuting',
                 'BaseController.filter1',
                 'BaseController.filter2',
                 'Controller.filter1',
                 'Controller.filter2',
-                'BaseController.actionExecuting',
-                'Controller.actionExecuting',
                 'action.filter1',
                 'action.filter2',
                 'action',
@@ -157,6 +157,7 @@ describe('routerUtils', function() {
             }
             
             var controller = new Controller();
+            var action = controller.actions['index'];
             
             var req = {};
             
@@ -167,10 +168,21 @@ describe('routerUtils', function() {
             
             var next = function() {};
             
-            routerUtils.executeController(controller, req, res, next, function() {
+            routerUtils.executeController({
+                controller: controller,
+                action: action,
+                verb: 'GET',
+                req: req,
+                res: res,
+                next: next
+            },
+            function() {
             
                 expectedOrder.forEach(function(expectedMessage, index) {
                     var actualMessage = actualOrder[index];
+                    
+                    console.log(actualMessage, expectedMessage);
+                    
                     assert.equal(actualMessage, expectedMessage, 'at index pos: ' + index);
                 });
             
@@ -190,6 +202,7 @@ describe('routerUtils', function() {
             };
             
             var controller = new Controller();
+            var action = controller.actions['index'];
             
             var req = {};
             
@@ -198,7 +211,15 @@ describe('routerUtils', function() {
             
             var next = function() {};
             
-            routerUtils.executeController(controller, req, res, next, function(next) {
+            routerUtils.executeController({
+                controller: controller,
+                action: action,
+                verb: 'GET',
+                req: req,
+                res: res,
+                next: next
+            },
+            function(next) {
                 assert.ok(!next, 'next middlewear should NOT be present');
                 done();
             });
@@ -216,12 +237,21 @@ describe('routerUtils', function() {
             };
             
             var controller = new Controller();
+            var action = controller.actions['index'];
             
             var req = {};
             var res = {};
             var next = function() {};
             
-            routerUtils.executeController(controller, req, res, next, function(next) {
+            routerUtils.executeController({
+                controller: controller,
+                action: action,
+                verb: 'GET',
+                req: req,
+                res: res,
+                next: next
+            },
+            function(next) {
                 assert.ok(next, 'next middleware callback should be present');
                 done();
             });
@@ -231,9 +261,21 @@ describe('routerUtils', function() {
             var Controller = gu.controller.create({
                 filters: [
                     function(req, res, next) {
-                        res.end('I am ending this!');
+                        res.render('I am ending this!');
                     }
                 ]
+            });
+            
+            Controller.on('actionExecuted', function() {
+                assert.ok(false, 'We should never reach the actionExecuted event');
+            });
+            
+            Controller.on('resultExecuting', function() {
+                assert.ok(false, 'We should never reach the resultExecuting event');
+            });
+            
+            Controller.on('resultExecuted', function() {
+                assert.ok(false, 'We should never reach the resultExecuted event');
             });
             
             Controller.actions = {
@@ -249,13 +291,25 @@ describe('routerUtils', function() {
             var res = {};
             res.end = function() {};
             
+            res.render = function(msg) {
+                res.end(msg);
+            };
+            
             var next = function() {};
             
             var controller = new Controller();
+            var action = controller.actions['index'];
             
-            routerUtils.executeController(controller, req, res, next, function(next) {
+            routerUtils.executeController({
+                controller: controller,
+                action: action,
+                verb: 'GET',
+                req: req,
+                res: res,
+                next: next
+            },
+            function(next) {
                 assert.ok(!next, 'next middleware callback should not be present');
-                
                 done();
             });
         });
