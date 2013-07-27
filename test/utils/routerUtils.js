@@ -104,7 +104,7 @@ describe('routerUtils', function() {
                 setTimeout(next, 2);
             });
         
-            var Controller = gu.controller.create({
+            var Controller = gu.controller.inherit(BaseController, {
                 filters: [
                     function(req, res, next) {
                         actualOrder.push('Controller.filter1');
@@ -151,7 +151,7 @@ describe('routerUtils', function() {
                     ],
                     GET: function(req, res) {
                         actualOrder.push('action');
-                        res.end();
+                        res.render();
                     }
                 }
             }
@@ -162,8 +162,13 @@ describe('routerUtils', function() {
             var req = {};
             
             var res = {};
+            
             res.end = function() {
                 actualOrder.push('result');
+            };
+            
+            res.render = function() {
+                res.end();
             };
             
             var next = function() {};
@@ -178,11 +183,14 @@ describe('routerUtils', function() {
             },
             function() {
             
+/*
+                actualOrder.forEach(function(actual) {
+                    console.log(actual); 
+                });
+*/
+            
                 expectedOrder.forEach(function(expectedMessage, index) {
                     var actualMessage = actualOrder[index];
-                    
-                    console.log(actualMessage, expectedMessage);
-                    
                     assert.equal(actualMessage, expectedMessage, 'at index pos: ' + index);
                 });
             
