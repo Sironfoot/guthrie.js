@@ -51,8 +51,10 @@ describe('routerUtils', function() {
         it('should execute filters, events and actions sequentially and in the correct order', function(done) {
         
             var expectedOrder = [
-                'BaseController.actionExecuting',
-                'Controller.actionExecuting',
+                'BaseController.actionExecuting1',
+                'BaseController.actionExecuting2',
+                'Controller.actionExecuting1',
+                'Controller.actionExecuting2',
                 'BaseController.filter1',
                 'BaseController.filter2',
                 'Controller.filter1',
@@ -60,13 +62,19 @@ describe('routerUtils', function() {
                 'action.filter1',
                 'action.filter2',
                 'action',
-                'BaseController.actionExecuted',
-                'Controller.actionExecuted',
-                'BaseController.resultExecuting',
-                'Controller.resultExecuting',
+                'BaseController.actionExecuted1',
+                'BaseController.actionExecuted2',
+                'Controller.actionExecuted1',
+                'Controller.actionExecuted2',
+                'BaseController.resultExecuting1',
+                'BaseController.resultExecuting2',
+                'Controller.resultExecuting1',
+                'Controller.resultExecuting2',
                 'result',
-                'BaseController.resultExecuted',
-                'Controller.resultExecuted'
+                'BaseController.resultExecuted1',
+                'BaseController.resultExecuted2',
+                'Controller.resultExecuted1',
+                'Controller.resultExecuted2'
             ];
             
             var actualOrder = [];
@@ -84,23 +92,44 @@ describe('routerUtils', function() {
                 ]
             });
             
-            BaseController.on('actionExecuting', function(req, res, next) {
-                actualOrder.push('BaseController.actionExecuting');
+            // We've jumbled the order uo deliberately
+            BaseController.on('actionExecuted', function(req, res, next) {
+                actualOrder.push('BaseController.actionExecuted1');
                 setTimeout(next, 2);
             });
             
             BaseController.on('actionExecuted', function(req, res, next) {
-                actualOrder.push('BaseController.actionExecuted');
-                setTimeout(next, 2);
-            });
-            
-            BaseController.on('resultExecuting', function(req, res, next) {
-                actualOrder.push('BaseController.resultExecuting');
+                actualOrder.push('BaseController.actionExecuted2');
                 setTimeout(next, 2);
             });
             
             BaseController.on('resultExecuted', function(req, res, next) {
-                actualOrder.push('BaseController.resultExecuted');
+                actualOrder.push('BaseController.resultExecuted1');
+                setTimeout(next, 2);
+            });
+            
+            BaseController.on('resultExecuted', function(req, res, next) {
+                actualOrder.push('BaseController.resultExecuted2');
+                setTimeout(next, 2);
+            });
+            
+            BaseController.on('actionExecuting', function(req, res, next) {
+                actualOrder.push('BaseController.actionExecuting1');
+                setTimeout(next, 2);
+            });
+            
+            BaseController.on('actionExecuting', function(req, res, next) {
+                actualOrder.push('BaseController.actionExecuting2');
+                setTimeout(next, 2);
+            });
+            
+            BaseController.on('resultExecuting', function(req, res, next) {
+                actualOrder.push('BaseController.resultExecuting1');
+                setTimeout(next, 2);
+            });
+            
+            BaseController.on('resultExecuting', function(req, res, next) {
+                actualOrder.push('BaseController.resultExecuting2');
                 setTimeout(next, 2);
             });
         
@@ -118,22 +147,42 @@ describe('routerUtils', function() {
             });
             
             Controller.on('actionExecuting', function(req, res, next) {
-                actualOrder.push('Controller.actionExecuting');
+                actualOrder.push('Controller.actionExecuting1');
+                setTimeout(next, 2);
+            });
+            
+            Controller.on('actionExecuting', function(req, res, next) {
+                actualOrder.push('Controller.actionExecuting2');
                 setTimeout(next, 2);
             });
             
             Controller.on('actionExecuted', function(req, res, next) {
-                actualOrder.push('Controller.actionExecuted');
+                actualOrder.push('Controller.actionExecuted1');
+                setTimeout(next, 2);
+            });
+            
+            Controller.on('actionExecuted', function(req, res, next) {
+                actualOrder.push('Controller.actionExecuted2');
                 setTimeout(next, 2);
             });
             
             Controller.on('resultExecuting', function(req, res, next) {
-                actualOrder.push('Controller.resultExecuting');
+                actualOrder.push('Controller.resultExecuting1');
+                setTimeout(next, 2);
+            });
+            
+            Controller.on('resultExecuting', function(req, res, next) {
+                actualOrder.push('Controller.resultExecuting2');
                 setTimeout(next, 2);
             });
             
             Controller.on('resultExecuted', function(req, res, next) {
-                actualOrder.push('Controller.resultExecuted');
+                actualOrder.push('Controller.resultExecuted1');
+                setTimeout(next, 2);
+            });
+            
+            Controller.on('resultExecuted', function(req, res, next) {
+                actualOrder.push('Controller.resultExecuted2');
                 setTimeout(next, 2);
             });
             
