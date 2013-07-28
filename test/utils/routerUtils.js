@@ -232,11 +232,9 @@ describe('routerUtils', function() {
             },
             function() {
             
-/*
-                actualOrder.forEach(function(actual) {
+                /* actualOrder.forEach(function(actual) {
                     console.log(actual); 
-                });
-*/
+                }); */
             
                 expectedOrder.forEach(function(expectedMessage, index) {
                     var actualMessage = actualOrder[index];
@@ -247,7 +245,7 @@ describe('routerUtils', function() {
             });
         });
         
-        it('should not provide a next() middlewear callback if next is not called in action', function(done) {
+        it('should not provide a next() middleware callback if next is not called in action', function(done) {
             var Controller = gu.controller.create();
             
             Controller.actions = {
@@ -288,7 +286,7 @@ describe('routerUtils', function() {
             Controller.actions = {
                 index: {
                     GET: function(req, res, next) {
-                        next();
+                        setTimeout(next, 2);
                     }
                 }
             };
@@ -367,6 +365,70 @@ describe('routerUtils', function() {
             },
             function(next) {
                 assert.ok(!next, 'next middleware callback should not be present');
+                done();
+            });
+        });
+        
+        it('should not call the same events multiple times', function(done) {
+            var req = {};
+            
+            var res = {};
+            res.end = function() {};
+            res.send = function() {
+                res.end();
+            }
+            res.render = function() {
+                res.send();
+            };
+            
+            var next = function() {};
+            
+            var eventCalls = 0;
+            
+            var Controller = gu.controller.create();
+            
+            Controller.on('actionExecuting', function(req, res, next) {
+                eventCalls++;
+                next();
+            });
+            
+            Controller.on('actionExecuted', function(req, res, next) {
+                eventCalls++;
+                next();
+            });
+            
+            Controller.on('resultExecuting', function(req, res, next) {
+                eventCalls++;
+                next();
+            });
+            
+            Controller.on('resultExecuted', function(req, res, next) {
+                eventCalls++;
+                next();
+            });
+            
+            Controller.actions = {
+                index: {
+                    GET: function(req, res, next) {
+                        res.render();
+                    }
+                }
+            };
+            
+            var controller = new Controller();
+            var action = controller.actions['index'];
+            
+            
+            routerUtils.executeController({
+                controller: controller,
+                action: action,
+                verb: 'GET',
+                req: req,
+                res: res,
+                next: next
+            },
+            function(next) {
+                assert.equal(eventCalls, 4, 'only 4 events should have been called, but was called ' + eventCalls + ' times');
                 done();
             });
         });
