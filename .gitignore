@@ -6,7 +6,7 @@ lib-cov
 *.out
 *.pid
 *.gz
-.bin/express
+node_modules/
 
 pids
 logs
