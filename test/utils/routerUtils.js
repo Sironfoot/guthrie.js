@@ -418,7 +418,6 @@ describe('routerUtils', function() {
             var controller = new Controller();
             var action = controller.actions['index'];
             
-            
             routerUtils.executeController({
                 controller: controller,
                 action: action,
@@ -431,6 +430,64 @@ describe('routerUtils', function() {
                 assert.equal(eventCalls, 4, 'only 4 events should have been called, but was called ' + eventCalls + ' times');
                 done();
             });
+        });
+        
+        it('should allow result methods to return values', function(done) {
+            var req = {};
+            
+            var res = {};
+            
+            res.end = function() { return 'Hello world'; };
+            res.send = function() {
+                return res.end()
+            }
+            res.render = function() {
+                var retVal = res.send();
+                assert.equal(retVal, 'Hello world');
+                done();
+            };
+            
+            var next = function() {};
+            
+            var Controller = gu.controller.create({
+                filters: [
+                    function (req, res, next) {
+                        setTimeout(function() {
+                            next();
+                        }, 2);
+                    }
+                ]
+            });
+            
+            Controller.on('actionExecuting', function(req, res, next) { return next(); });
+            Controller.on('actionExecuted', function(req, res, next) {
+                setTimeout(function() {
+                    next();
+                }, 2);
+            });
+            Controller.on('resultExecuting', function(req, res, next) { return next(); });
+            Controller.on('resultExecuted', function(req, res, next) { return next(); });
+            
+            Controller.actions = {
+                index: {
+                    GET: function(req, res, next) {
+                        res.render();
+                    }
+                }
+            };
+
+            var controller = new Controller();
+            var action = controller.actions['index'];
+            
+            routerUtils.executeController({
+                controller: controller,
+                action: action,
+                verb: 'GET',
+                req: req,
+                res: res,
+                next: next
+            },
+            function(next) { });
         });
     });
 });
