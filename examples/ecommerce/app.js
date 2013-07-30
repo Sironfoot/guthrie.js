@@ -3,21 +3,18 @@
 var express = require('express');
 var http = require('http');
 var path = require('path');
-var util = require('util');
-var events = require('events');
 var nunjucks = require('nunjucks');
-  
 var gu = require('../..');
 
 var app = express();
 
-// all environments
+// Nunjucks view engine
 var env = new nunjucks.Environment(new nunjucks.FileSystemLoader('views'));
 env.express(app);
 
+// all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
-app.set('view engine', 'html');
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
@@ -33,7 +30,8 @@ if ('development' == app.get('env')) {
 // Map routes
 var router = new gu.Router(app, __dirname, {
     controllersDir: path.join(__dirname, 'controllers'),
-    viewsDir: path.join(__dirname, 'views')
+    viewsDir: path.join(__dirname, 'views'),
+    viewsExt: 'html'
 });
 
 router.mapRoute('/', { controller: 'home', action: 'index' });

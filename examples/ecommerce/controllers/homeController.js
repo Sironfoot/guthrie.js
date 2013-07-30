@@ -8,7 +8,7 @@ homeController.actions = {
     // PATH: /
     index: {
         GET: function(req, res) {
-            res.render('home/index.html');
+            res.view();
         }
     }
 };
