@@ -50,7 +50,7 @@ HomeController.actions = {
         ],
     
         GET: function(req, res) {
-            console.log('Executing action');
+            console.log('Executing Action');
             res.view();
         }
     },
