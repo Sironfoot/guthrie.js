@@ -1,0 +1,28 @@
+{% extends "shared/_layout.html" %}
+{% block content %}
+
+    <h1>Login</h1>
+    
+    <form method="post" action="/account/login">
+        <fieldset class="standardForm">
+            <div class="formRow">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" name="email" class="textbox email" />
+            </div>
+            <div class="formRow">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" class="textbox password" />
+            </div>
+            <div class="buttonRow">
+                <button>Login</button>
+            </div>
+            
+            {% if notFound %}
+            <div class="error">
+                <p>Sorry, but we couldn't find your details</p>
+            </div>
+            {% endif %}
+        </fieldset>
+    </form>
+
+{% endblock %}

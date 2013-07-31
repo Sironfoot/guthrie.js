@@ -1,0 +1,21 @@
+{% extends "shared/_layout.html" %}
+{% block content %}
+
+    <h1>{{ category.name }}</h1>
+    
+    {% for product in products %}
+        <article>
+            <h2>{{ product.name }}</h2>
+            <p>{{ product.description }}</p>
+            <img alt="" src="{{ product.imageUrl }}" style="max-width: 300px" />
+            
+            <p>${{ product.price.toFixed(2) }}</p>
+            
+            <form method="post" action="/orders/add">
+                <input type="hidden" name="productId" value="{{ product.id }}" />
+                <button>Add To Basket</button>
+            </form>
+        </article>
+    {% endfor %}
+    
+{% endblock %}

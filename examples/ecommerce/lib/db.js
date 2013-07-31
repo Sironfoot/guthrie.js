@@ -1,3 +1,5 @@
+'use strict';
+
 var fs = require('fs');
 var path = require('path');
 
@@ -7,7 +9,26 @@ function getCategories(app, callback) {
     fs.readFile(filePath, { encoding: 'utf8' }, function(err, data) {
 
         var categories = !err ? JSON.parse(data.toString()) : [];
-        callback(err, categories)
+        callback(err, categories);
+    });
+}
+
+function getCategory(app, categoryId, callback) {
+    getCategories(app, function(err, categories) {
+        
+        var category = null;
+        
+        if (!err) {
+            var found = categories.filter(function(category) {
+                return category.id === categoryId;
+            });
+            
+            if (found.length > 0) {
+                category = found[0];
+            }
+        }
+        
+        callback(err, category);
     });
 }
 
@@ -17,7 +38,7 @@ function getProducts(app, callback) {
     fs.readFile(filePath, { encoding: 'utf8' }, function(err, data) {
         
         var products = !err ? JSON.parse(data.toString()) : [];
-        callback(err, products) 
+        callback(err, products);
     });
 }
 
@@ -25,8 +46,8 @@ function getProductsInCategory(app, categoryId, callback) {
     getProducts(app, function(err, products) {
         var categoryProducts = [];
     
-        if (!err) {}
-            categoryProducts= products.filter(function(product) {
+        if (!err) {
+            categoryProducts = products.filter(function(product) {
                 return product.categoryId === categoryId;
             });
         }
@@ -66,6 +87,7 @@ function findCutomerByEmail(app, email, callback) {
 
 
 exports.getCategories = getCategories;
+exports.getCategory = getCategory;
 exports.getProducts = getProducts;
 exports.getProductsInCategory = getProductsInCategory;
 exports.getCustomers = getCustomers;

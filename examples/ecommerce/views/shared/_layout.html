@@ -3,13 +3,15 @@
     <head>
         <meta charset="utf-8" />
         
-        <title>iShop</title>
+        <title>{% block title %}{% endblock %} - iPupillam</title>
         
         <link rel="stylesheet" href="/styles/1.normalize.css" />
         <link rel="stylesheet" href="/styles/2.utils.css" />
         <link rel="stylesheet" href="/styles/3.main.css" />
         
         <script src="/scripts/main.js"></script>
+        
+        {% block head %}{% endblock %}
     </head>
     <body>
     
@@ -22,7 +24,14 @@
                 </p>
                 
                 <div class="account">
-                    <a href="/login">Login</a>
+                    {% if viewbag.authUser %}
+                        <p>{{ viewbag.authUser.name }}</p>
+                        <form method="post" action="/account/logout">
+                            <button>Logout</button>
+                        </form>
+                    {% else %}
+                        <a href="/account/login">Login</a>
+                    {% endif %}
                 </div>
             </header>
             
@@ -39,22 +48,26 @@
             <div id="middle">
                 <nav class="categories">
                     <ul>
-                        <li><a href="/categories/ipod">iPod</a></li>
-                        <li><a href="/categories/mac-desktop">Mac (Desktop)</a></li>
-                        <li><a href="/categories/mac-notebook">Mac (Notebook)</a></li>
-                        <li><a href="/category/iphone">iPhone</a></li>
-                        <li><a href="/category/ipad">iPad</a></li>
-                        <li><a href="/category/accessories">Accessories</a></li>
+                        {% for category in viewbag.categories %}
+                            <li><a href="/category/{{ category.id }}">{{ category.name }}</a></li>
+                        {% endfor %}
                     </ul>
                 </nav>
                 
-                <div class="content">
-                    
-                </div>
+                <section id="content">
+                    {% block content %}{% endblock %}
+                </section>
             </div>
         
             <footer id="footer">
                 <small>2013 &copy; iShop - All rights reserved</small>
+                
+                <ul class="legalLinks">
+                    <li><a href="/about">about</a></li>
+                    <li><a href="/about/contact">contact</a></li>
+                    <li><a href="/about/legal">legal</a></li>
+                    <li><a href="/about/terms">terms &amp; conditions</a></li>
+                </ul>
             </footer>
         
         </div>

@@ -18,14 +18,16 @@ app.set('views', __dirname + '/views');
 app.set('rootDir', __dirname);
 app.use(express.favicon());
 app.use(express.logger('dev'));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
+app.use(express.cookieParser());
+app.use(express.session({secret: 'bicycle for the mind'}));
 app.use(app.router);
-app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
 if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
+    app.use(express.errorHandler());
 }
 
 // Map routes
@@ -35,10 +37,19 @@ var router = new gu.Router(app, __dirname, {
     viewsExt: 'html'
 });
 
-router.mapRoute('/', { controller: 'home', action: 'index' });
+router.mapRoute('/', {
+    controller: 'home',
+    action: 'index'
+});
+
+router.mapRoute('/category/:categoryId', {
+    controller: 'category',
+    action: 'show'
+});
+
 router.mapRoute('/:controller/:action?/:id?');
 
 // Fire up server
 http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
+    console.log('Express server listening on port ' + app.get('port'));
 });
