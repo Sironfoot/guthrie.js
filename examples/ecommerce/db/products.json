@@ -1,0 +1,201 @@
+[
+    {
+        "id": "ipod-shuffle-2gb",
+        "categoryId": "ipod",
+        "name": "iPod Shuffle (2GB)",
+        "description": "The colorful, clip-and-go iPod shuffle. With buttons, VoiceOver, and playlists, it’s got all the greatest hits. Only $49.",
+        "imageUrl": "http://store.storeimages.cdn-apple.com/3497/as-images.apple.com/is/image/AppleInc/2012-ipodshuffle-gallery1-zoom?wid=1000&hei=600&fmt=jpeg&qlt=95&op_sharpen=0&resMode=bicub&op_usm=0.5,0.5,0,0&iccEmbed=0&layer=comp&.v=1348082564484",
+        "price": 49.00
+    },
+    {
+        "id": "ipod-nano-16gb",
+        "categoryId": "ipod",
+        "name": "iPod Nano (16GB)",
+        "description": "About the size of a credit card — and just 5.4 mm thin — the new iPod nano is the thinnest iPod ever made.",
+        "imageUrl": "http://store.storeimages.cdn-apple.com/3497/as-images.apple.com/is/image/AppleInc/2012-ipodnano-gallery1-zoom?wid=1000&hei=600&fmt=jpeg&qlt=95&op_sharpen=0&resMode=bicub&op_usm=0.5,0.5,0,0&iccEmbed=0&layer=comp&.v=1348095492293",
+        "price": 149.00
+    },
+    {
+        "id": "ipod-touch-32gb",
+        "categoryId": "ipod",
+        "name": "iPod Touch (32GB)",
+        "description": "Fun was built into every millimeter of the thinnest, lightest iPod touch. It does more than ever, more powerfully than ever, from playing games to playing music to just playing around.",
+        "imageUrl": "http://store.storeimages.cdn-apple.com/3497/as-images.apple.com/is/image/AppleInc/2012-ipodtouch-product-step1?wid=218&hei=261&fmt=png-alpha&qlt=95&.v=1373306646066",
+        "price": 149.00
+    },
+
+    
+    
+    {
+        "id": "mac-mini",
+        "categoryId": "mac-desktop",
+        "name": "Mac Mini",
+        "description": "Mac mini features third-generation Intel Core processors, faster integrated graphics, Thunderbolt, and plenty of ports. Expect big things.",
+        "imageUrl": "http://store.storeimages.cdn-apple.com/3497/as-images.apple.com/is/image/AppleInc/2012-macmini-step1-hero?wid=275&hei=80&fmt=png-alpha&qlt=95&.v=1350419730090",
+        "price": 599.00
+    },
+    {
+        "id": "imac-21",
+        "categoryId": "mac-desktop",
+        "name": "iMac (21-inch)",
+        "description": "A big, bold display. Third-generation Intel quad-core processors and the latest NVIDIA graphics. Cutting-edge storage options. And much more. No desktop has ever brought so much to the table.",
+        "imageUrl": "http://store.storeimages.cdn-apple.com/3497/as-images.apple.com/is/image/AppleInc/2012-imac215-step1-hero?wid=490&hei=180&fmt=png-alpha&qlt=95&.v=1362423941130",
+        "price": 1299.00
+    },
+    {
+        "id": "imac-27",
+        "categoryId": "mac-desktop",
+        "name": "iMac (27-inch)",
+        "description": "A big, bold display. Third-generation Intel quad-core processors and the latest NVIDIA graphics. Cutting-edge storage options. And much more. No desktop has ever brought so much to the table.",
+        "imageUrl": "http://store.storeimages.cdn-apple.com/3497/as-images.apple.com/is/image/AppleInc/2012-imac27-step1-hero?wid=490&hei=180&fmt=png-alpha&qlt=95&.v=1362423941764",
+        "price": 1799.00
+    },
+    {
+        "id": "mac-pro",
+        "categoryId": "mac-desktop",
+        "name": "Mac Pro",
+        "description": "Engineered around workstation graphics with dual GPUs, PCI Express-based flash storage, high-performance Thunderbolt 2, new-generation Xeon processors, ultrafast memory, and support for 4K video.",
+        "imageUrl": "http://images.techhive.com/images/article/2013/06/mac_pro_2013_03-100041172-orig.jpg",
+        "price": 3999.00
+    },
+    
+    
+    
+    {
+        "id": "macbook-air-11",
+        "categoryId": "mac-notebook",
+        "name": "MacBook Air (11-inch)",
+        "description": "Sure, MacBook Air is unbelievably thin and light. But we also designed it to be powerful, capable, durable, and enjoyable to use. With enough battery life to get you through the day.",
+        "imageUrl": "http://store.storeimages.cdn-apple.com/3497/as-images.apple.com/is/image/AppleInc/macbook-air-11-step1-hero-2013?wid=249&hei=135&fmt=png-alpha&qlt=95&.v=1370019437201",
+        "price": 999.00
+    },
+    {
+        "id": "macbook-air-13",
+        "categoryId": "mac-notebook",
+        "name": "MacBook Air (13-inch)",
+        "description": "Sure, MacBook Air is unbelievably thin and light. But we also designed it to be powerful, capable, durable, and enjoyable to use. With enough battery life to get you through the day.",
+        "imageUrl": "http://store.storeimages.cdn-apple.com/3497/as-images.apple.com/is/image/AppleInc/macbook-air-13-step1-hero-2013?wid=259&hei=155&fmt=png-alpha&qlt=95&.v=1370019741563",
+        "price": 1099.00
+    },
+    {
+        "id": "macbook-pro-retina-13",
+        "categoryId": "mac-notebook",
+        "name": "MacBook Pro Retina (13-inch)",
+        "description": "A groundbreaking Retina display. All-flash architecture. The fastest mobile processors. Remarkably thin and light 13‑inch and 15‑inch designs.",
+        "imageUrl": "http://store.storeimages.cdn-apple.com/3497/as-images.apple.com/is/image/AppleInc/2012-macbookprord13-step1-hero?wid=168&hei=93&fmt=png-alpha&qlt=95&.v=1350416129895",
+        "price": 1499.00
+    },
+    {
+        "id": "macbook-pro-retina-15",
+        "categoryId": "mac-notebook",
+        "name": "MacBook Pro Retina (15-inch)",
+        "description": "A groundbreaking Retina display. All-flash architecture. The fastest mobile processors. Remarkably thin and light 13‑inch and 15‑inch designs.",
+        "imageUrl": "http://store.storeimages.cdn-apple.com/3497/as-images.apple.com/is/image/AppleInc/2012-macbookprord15-step1-hero?wid=168&hei=93&fmt=png-alpha&qlt=95&.v=1350416130689",
+        "price": 2199.00
+    },
+    
+    
+    
+    {
+        "id": "iphone-4s-16gb",
+        "categoryId": "iphone",
+        "name": "iPhone 4S (16GB)",
+        "description": "It features a dual-core A5 chip, an 8MP iSight camera that shoots 1080p HD video, the intelligent assistant known as Siri, and endless possibilities.",
+        "imageUrl": "http://store.storeimages.cdn-apple.com/3497/as-images.apple.com/is/image/AppleInc/2012-iphone4s-select-white?wid=123&hei=211&fmt=png-alpha&qlt=95&.v=1349465736504",
+        "price": 549.00
+    },
+    {
+        "id": "iphone-5-16gb",
+        "categoryId": "iphone",
+        "name": "iPhone 5 (16GB)",
+        "description": "What makes an iPhone unlike anything else? Maybe it’s that it lets you do so many things. Or that it lets you do so many things so easily.",
+        "imageUrl": "http://store.storeimages.cdn-apple.com/3497/as-images.apple.com/is/image/AppleInc/2012-iphone5-select-white?wid=132&hei=192&fmt=png-alpha&qlt=95&.v=1346880935489",
+        "price": 649.00
+    },
+    {
+        "id": "iphone-5-32gb",
+        "categoryId": "iphone",
+        "name": "iPhone 5 (32GB)",
+        "description": "What makes an iPhone unlike anything else? Maybe it’s that it lets you do so many things. Or that it lets you do so many things so easily.",
+        "imageUrl": "http://store.storeimages.cdn-apple.com/3497/as-images.apple.com/is/image/AppleInc/2012-iphone5-select-white?wid=132&hei=192&fmt=png-alpha&qlt=95&.v=1346880935489",
+        "price": 749.00
+    },
+    {
+        "id": "iphone-5-64gb",
+        "categoryId": "iphone",
+        "name": "iPhone 5 (64GB)",
+        "description": "What makes an iPhone unlike anything else? Maybe it’s that it lets you do so many things. Or that it lets you do so many things so easily.",
+        "imageUrl": "http://store.storeimages.cdn-apple.com/3497/as-images.apple.com/is/image/AppleInc/2012-iphone5-select-white?wid=132&hei=192&fmt=png-alpha&qlt=95&.v=1346880935489",
+        "price": 849.00
+    },
+    
+    
+    
+    {
+        "id": "ipad-16gb",
+        "categoryId": "ipad",
+        "name": "iPad (16GB)",
+        "description": "Right from the start, there’s a lot to love about iPad. It’s simple yet powerful. Thin and light yet full-featured. It can do just about everything and be just about anything. And because it’s so easy to use, it’s easy to love.",
+        "imageUrl": "http://store.storeimages.cdn-apple.com/3497/as-images.apple.com/is/image/AppleInc/2012-ipadrd-step1-black?wid=150&hei=195&fmt=png-alpha&qlt=95&.v=1350425156472",
+        "price": 499.00
+    },
+    {
+        "id": "ipad-32gb",
+        "categoryId": "ipad",
+        "name": "iPad (32GB)",
+        "description": "Right from the start, there’s a lot to love about iPad. It’s simple yet powerful. Thin and light yet full-featured. It can do just about everything and be just about anything. And because it’s so easy to use, it’s easy to love.",
+        "imageUrl": "http://store.storeimages.cdn-apple.com/3497/as-images.apple.com/is/image/AppleInc/2012-ipadrd-step1-black?wid=150&hei=195&fmt=png-alpha&qlt=95&.v=1350425156472",
+        "price": 599.00
+    },
+    {
+        "id": "ipad-mini-16gb",
+        "categoryId": "ipad",
+        "name": "iPad Mini (16GB)",
+        "description": "Colors are vivid and text is sharp on the iPad mini display. But what really makes it stand out is its size. At 7.9 inches, it’s perfectly sized to deliver an experience every bit as big as iPad.",
+        "imageUrl": "http://store.storeimages.cdn-apple.com/3497/as-images.apple.com/is/image/AppleInc/2012-ipadmini-step1-white?wid=150&hei=195&fmt=png-alpha&qlt=95&.v=1350866368312",
+        "price": 329.00
+    },
+    {
+        "id": "ipad-mini-32gb",
+        "categoryId": "ipad",
+        "name": "iPad Mini (32GB)",
+        "description": "Colors are vivid and text is sharp on the iPad mini display. But what really makes it stand out is its size. At 7.9 inches, it’s perfectly sized to deliver an experience every bit as big as iPad.",
+        "imageUrl": "http://store.storeimages.cdn-apple.com/3497/as-images.apple.com/is/image/AppleInc/2012-ipadmini-step1-white?wid=150&hei=195&fmt=png-alpha&qlt=95&.v=1350866368312",
+        "price": 429.00
+    },
+    
+    
+    
+    {
+        "id": "lightning-usb-cable-1m",
+        "categoryId": "accessories",
+        "name": "Lightning to USB Cable (1m)",
+        "description": "This USB 2.0 cable connects your iPhone, iPad, or iPod with Lightning connector to your computer's USB port for syncing and charging or to the Apple USB Power Adapter for convenient charging from a wall outlet.",
+        "imageUrl": "http://store.storeimages.cdn-apple.com/3497/as-images.apple.com/is/image/AppleInc/MD818?wid=650&hei=650&fmt=jpeg&qlt=95&op_sharpen=0&resMode=bicub&op_usm=0.5,0.5,0,0&iccEmbed=0&layer=comp&.v=1360633796897",
+        "price": 19.00
+    },
+    {
+        "id": "earpods",
+        "categoryId": "accessories",
+        "name": "Apple EarPods with Remote and Mic",
+        "description": "Unlike traditional, circular earbuds, the design of the new Apple EarPods is defined by the geometry of the ear. Which makes them more comfortable for more people than any other earbud-style headphone.",
+        "imageUrl": "http://store.storeimages.cdn-apple.com/3497/as-images.apple.com/is/image/AppleInc/MD827?wid=400&hei=400&fmt=jpeg&qlt=95&op_sharpen=0&resMode=bicub&op_usm=0.5,0.5,0,0&iccEmbed=0&layer=comp&.v=1364594773085",
+        "price": 29.00
+    },
+    {
+        "id": "car-charger",
+        "categoryId": "accessories",
+        "name": "Just Wireless Car Charger",
+        "description": "The Just Wireless Car Charger can charge your iPad, iPhone, or iPod from any vehicle power port. Plug in your Lightning to USB or 30 Pin to USB cable (separate purchase) and get 10 watts of intense power to your device.",
+        "imageUrl": "http://store.storeimages.cdn-apple.com/3497/as-images.apple.com/is/image/AppleInc/HB245?wid=400&hei=400&fmt=jpeg&qlt=95&op_sharpen=0&resMode=bicub&op_usm=0.5,0.5,0,0&iccEmbed=0&layer=comp&.v=1368752308494",
+        "price": 14.95
+    },
+    {
+        "id": "wireless-keyboard",
+        "categoryId": "accessories",
+        "name": "Apple Wireless Keyboard - English",
+        "description": "Use the Apple Wireless Keyboard on your desk, on your lap, or anywhere within 30 feet of your Mac or iPad — all because of its built-in Bluetooth technology.",
+        "imageUrl": "http://store.storeimages.cdn-apple.com/3497/as-images.apple.com/is/image/AppleInc/MC184LL?wid=400&hei=400&fmt=jpeg&qlt=95&op_sharpen=0&resMode=bicub&op_usm=0.5,0.5,0,0&iccEmbed=0&layer=comp&.v=1328049425325",
+        "price": 69.00
+    }
+]

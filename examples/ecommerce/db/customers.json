@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Dominic Pettifer",
+        "email": "sironfoot@gmail.com",
+        "password": "Password1",
+        "orders": [{
+            "date": "2013-07-23T18:25:43.511Z",
+            "orderTotal": 1799.00,
+            "items": [{
+                "id": "imac-27",
+                "name": "iMac (27-inch)",
+                "price": 1799.00,
+                "quantity": 1
+            }]
+        }]
+    }
+]

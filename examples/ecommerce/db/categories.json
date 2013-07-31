@@ -1,0 +1,26 @@
+[
+    {
+        "id": "ipod",
+        "name": "iPods"
+    },
+    {
+        "id": "mac-desktop",
+        "name": "Mac (Desktop)"
+    },
+    {
+        "id": "mac-notebook",
+        "name": "Mac (Notebook)"
+    },
+    {
+        "id": "iphone",
+        "name": "iPhones"
+    },
+    {
+        "id": "ipad",
+        "name": "iPads"
+    },
+    {
+        "id": "accessories",
+        "name": "Accessories"
+    },
+]
