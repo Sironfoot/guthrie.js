@@ -11,7 +11,7 @@
             
             <p>${{ product.price.toFixed(2) }}</p>
             
-            <form method="post" action="/orders/add">
+            <form method="post" action="/basket/add">
                 <input type="hidden" name="productId" value="{{ product.id }}" />
                 <button>Add To Basket</button>
             </form>

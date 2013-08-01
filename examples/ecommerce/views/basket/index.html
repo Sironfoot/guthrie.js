@@ -1,0 +1,16 @@
+{% extends "shared/_layout.html" %}
+{% block content %}
+
+    <h1>My Shopping Basket</h1>
+    
+    {% if items %}
+        <ul class="basket">
+            {% for item in items %}
+                <li>{{item.product.name }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You have no items in your shopping basket</p>
+    {% endif %}
+
+{% endblock %}

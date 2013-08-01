@@ -3,6 +3,7 @@
 var gu = require('../../..');
 var baseController = require('./baseController');
 var db = require('../lib/db');
+var filters = require('../lib/filters');
 
 var accountController = gu.controller.inherit(baseController);
 
@@ -10,6 +11,8 @@ accountController.actions = {
     
     // PATH /account
     index: {
+        filters: [ filters.loginRequired ],
+        
         GET: function(req, res) {
             res.view();
         }
@@ -38,7 +41,7 @@ accountController.actions = {
         }
     },
     
-    // PATH: /account/login
+    // PATH: /account/logout
     logout: {
         POST: function(req, res) {
             req.session.destroy();
