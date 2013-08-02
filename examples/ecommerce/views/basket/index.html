@@ -6,9 +6,20 @@
     {% if items %}
         <ul class="basket">
             {% for item in items %}
-                <li>{{item.product.name }}</li>
+                <li>
+                    <h2>{{ item.product.name }}</h2>
+                    <p>Quantity: {{ item.quantity }}</p>
+                    <form method="post" action="/basket/remove">
+                        <input type="hidden" name="productId" value="{{ item.product.id }}" />
+                        <button>Remove</button>
+                    </form>
+                </li>
             {% endfor %}
         </ul>
+        
+        <form method="post" action="/basket/empty">
+            <button>Empty Basket</button>
+        </form>
     {% else %}
         <p>You have no items in your shopping basket</p>
     {% endif %}

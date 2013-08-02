@@ -20,27 +20,21 @@ basketController.actions = {
                     if (err) throw err;
                     
                     var items = [];
-                    
-                    console.log(req.session.basket[0].productId);
-                    
+
                     req.session.basket.forEach(function(item) {
                         var product = products.filter(function(product) {
-                            return product.productId === item.productId;
+                            return product.id === item.productId;
                         })[0];
-                        
-                        console.log(product);
                         
                         if (product) {
                             items.push({ product: product, quantity: item.quantity });
                         }
                     });
                     
-                    //console.log(items.length);
                     res.view({ items: items });
                 });
             }
             else {
-                //console.log('here 2');
                 res.view();
             }
         }
@@ -74,7 +68,24 @@ basketController.actions = {
     // PATH: /basket/remove
     remove: {
         POST: function(req, res) {
-            res.redirect('/');
+        
+            var productId = req.body.productId;
+            var basket = req.session.basket;
+            
+            if (basket) {
+                req.session.basket = basket.filter(function(item) {
+                    return item.productId !== productId;
+                });
+            }
+        
+            res.redirect('/basket');
+        }
+    },
+    
+    empty: {
+        POST: function(req, res) {
+            req.session.basket = [];
+            res.redirect('/basket')
         }
     }
 };
