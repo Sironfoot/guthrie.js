@@ -1,0 +1,42 @@
+* {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
+    margin-bottom: 1em;
+}
+
+p {
+    line-height: 1.5em;
+    margin-top: 0;
+    margin-bottom: 1em;
+}
+
+fieldset {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.formRow {
+    margin-bottom: 5px;
+}
+
+.formRow label {
+    display: block;
+    float: left;
+    width: 80px;
+}
+
+.formRow .textbox {
+    margin-left: 10px;
+}
+
+.buttonRow {
+margin-top: 10px;
+    padding-left: 90px;
+}

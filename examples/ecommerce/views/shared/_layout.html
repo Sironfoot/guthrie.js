@@ -18,7 +18,7 @@
         <div class="mainContainer">
     
             <header id="header">
-                <h1>iPupillam</h1>
+                <h1 class="title">iPupillam</h1>
                 <p class="blurb">
                     For all your Apple gadget needs.
                 </p>
@@ -47,6 +47,8 @@
             
             <div id="middle">
                 <nav class="categories">
+                    <h2 class="title">Categories</h2>
+                
                     <ul>
                         {% for category in viewbag.categories %}
                             <li><a href="/category/{{ category.id }}">{{ category.name }}</a></li>

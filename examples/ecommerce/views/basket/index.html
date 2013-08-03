@@ -7,8 +7,11 @@
         <ul class="basket">
             {% for item in items %}
                 <li>
-                    <h2>{{ item.product.name }}</h2>
-                    <p>Quantity: {{ item.quantity }}</p>
+                    <h2 class="title">{{ item.product.name }}</h2>
+                    <p class="quantity">Quantity: {{ item.quantity }}</p>
+                    <div class="prices">
+                        <p class="unit">Total: £{{ item.quantity * item.product.price }}</p>
+                    </div>
                     <form method="post" action="/basket/remove">
                         <input type="hidden" name="productId" value="{{ item.product.id }}" />
                         <button>Remove</button>

@@ -4,7 +4,7 @@
     <h1>{{ category.name }}</h1>
     
     {% for product in products %}
-        <article>
+        <article class="product">
             <h2>{{ product.name }}</h2>
             <p>{{ product.description }}</p>
             <img alt="" src="{{ product.imageUrl }}" style="max-width: 300px" />

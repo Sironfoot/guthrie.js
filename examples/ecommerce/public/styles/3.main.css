@@ -1,0 +1,154 @@
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: #444;
+    padding: 20px 20px 50px 20px;
+    
+    background: #fafafa;
+    background: -webkit-linear-gradient(top, #fefefe 0, lightblue 100%);
+    background: linear-gradient(to bottom, #fefefe 0, lightblue 100%);
+}
+
+.mainContainer {
+    width: 960px;
+    margin: 0 auto;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+}
+
+/*---- HEADER ----*/
+#header {
+    position: relative;
+}
+
+#header .account {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+#header .title {
+    margin-bottom: 0.2em;
+    font-size: 32px;
+}
+
+.topNav ul {
+    padding: 0;
+    list-style-type: none;
+    display: table;
+    width: 100%;
+    border: 1px solid #ddd;
+}
+
+.topNav ul li {
+    display: table-cell;
+}
+
+.topNav ul > li > a {
+    display: block;
+    padding: 0.2em 1em;
+    text-decoration: none;
+    border-right: 1px solid #ddd;
+    text-align: center;
+}
+
+.topNav ul > li:last-child > a {
+    border-right: none;
+}
+
+
+/*---- MID SECTION ----*/
+#middle {
+    display: table;
+    width: 100%;
+    margin: 10px 0 30px 0;
+}
+
+.categories {
+    display: table-cell;
+    vertical-align: top;
+    width: 200px;
+}
+
+#content {
+    display: table-cell;
+    vertical-align: top;
+}
+
+.product {
+    display: inline-block;
+    width: 49%;
+    border: 1px solid #ddd;
+    margin-bottom: 5px;
+    padding: 10px;
+    height: 450px;
+    vertical-align: top;
+}
+
+.product .title {
+    font-size: 18px;
+}
+
+.product img {
+    max-height: 150px;
+    margin: 0 auto;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.basket {
+    padding-left: 0;
+    list-style-type: none;
+}
+
+.basket > li {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    padding: 20px;
+    position: relative;
+}
+
+.basket .title {
+    margin-bottom: 0.2em;
+    max-width: 80%;
+}
+
+.basket .prices {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-weight: bold;
+}
+
+
+/*---- FOOTER SECTION ----*/
+
+#footer {
+    border-top: 1px solid #eee;
+    text-align: center;
+    font-size: 12px;
+}
+
+#footer small {
+    font-size: 12px;
+}
+
+.legalLinks {
+    display: inline-block;
+}
+
+.legalLinks > li {
+    display: inline-block;
+}
+
+.legalLinks > li > a {
+    padding: 0.1em 0.5em;
+    border-right: 1px solid #eee;
+}
+
+.legalLinks > li:last-child > a {
+    border-right: none;
+}
