@@ -1,3 +1,7 @@
+html {
+    background-color: lightblue;
+}
+
 body {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 14px;
@@ -5,8 +9,8 @@ body {
     padding: 20px 20px 50px 20px;
     
     background: #fafafa;
-    background: -webkit-linear-gradient(top, #fefefe 0, lightblue 100%);
-    background: linear-gradient(to bottom, #fefefe 0, lightblue 100%);
+    background: lightblue -webkit-linear-gradient(top, #fefefe 0, lightblue 100%);
+    background: lightblue linear-gradient(to bottom, #fefefe 0, lightblue 100%);
 }
 
 .mainContainer {
