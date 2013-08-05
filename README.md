@@ -8,6 +8,7 @@ as nouns for something (product, category, order) and actions as verbs (show, ed
 
 ## Installation
 
+    $ npm install express
     $ npm install guthrie
 
 ## Quick Start
@@ -47,7 +48,7 @@ root directory, and the file name must be affixed with 'Controller.js'. So creat
 
 ````javascript
 
-var gu = require('gu');
+var gu = require('guthrie');
 
 var homeController = gu.controller.create();
 homeController.actions = {
