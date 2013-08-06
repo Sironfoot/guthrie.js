@@ -2,14 +2,16 @@
     "name": "guthrie",
     "description": "A Node.js MVC framework built on Express.js, inspired by Microsoft's ASP.NET MVC.",
     "keywords": [
+        "guthrie",
         "mvc",
-        "asp.net",
-        "express",
         "framework",
+        "web",
+        "express",
+        "asp.net",
         "microsoft"
     ],
     
-    "version": "0.0.1",
+    "version": "0.1.0",
     "author": "Dominic Pettifer <sironfoot@gmail.com>",
     
     "contributors": [],
@@ -18,7 +20,11 @@
         "express": "3.x"
     },
     
-    "devDependencies": {},
+    "devDependencies": {
+        "mocha": "*",
+        "ejs": "*",
+        "nunjucks": "*"
+    },
     
     "repository": {
         "type" : "git",
