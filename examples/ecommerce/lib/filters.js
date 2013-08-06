@@ -1,6 +1,6 @@
 exports.loginRequired = function(req, res, next) {
     
-    if (!res.authUser) {
+    if (!this.authUser) {
         res.redirect('/account/login');
     }
     else {

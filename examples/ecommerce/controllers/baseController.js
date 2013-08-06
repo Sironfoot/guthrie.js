@@ -9,7 +9,7 @@ baseController.on('actionExecuting', function(req, res, next) {
     
     db.getCategories(self.app, function(err, categories) {
         if (err) throw err;
-        self.viewbag(res).categories = categories;
+        self.viewbag().categories = categories;
         
         var authEmailId = req.session.authEmailId;
         
@@ -18,8 +18,8 @@ baseController.on('actionExecuting', function(req, res, next) {
                 if (err) throw err;
                 
                 if (customer) {
-                    res.authUser = customer;
-                    self.viewbag(res).authUser = customer;
+                    self.authUser = customer;
+                    self.viewbag().authUser = customer;
                 }
                 
                 next();

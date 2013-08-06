@@ -489,5 +489,180 @@ describe('routerUtils', function() {
             },
             function(next) { });
         });
+        
+        it('should allow properties to be added to "this" context which persist for other filters, events and actions', function(done) {
+            var req = {};
+            
+            var res = {};
+            res.locals = {};
+            res.end = function() {};
+            
+            var next = function() {};
+            
+            var assertions = 0;
+            
+            var BaseController = gu.controller.create({
+                filters: [
+                    function(req, res, next) {
+                        assert.equal(this.message, 'hello');
+                        assertions++;
+                        next();
+                    }
+                ]
+            });
+            
+            BaseController.on('actionExecuting', function(req, res, next) {
+                this.message = 'hello';
+                
+                assert.equal(this.message, 'hello');
+                assertions++;
+                next();
+            });
+            
+            BaseController.on('actionExecuted', function(req, res, next) {
+                assert.equal(this.message, 'hello');
+                assertions++;
+                next();
+            });
+            
+            BaseController.on('resultExecuting', function(req, res, next) {
+                assert.equal(this.message, 'hello');
+                assertions++;
+                next();
+            });
+            
+            BaseController.on('resultExecuted', function(req, res, next) {
+                assert.equal(this.message, 'hello');
+                assertions++;
+                next();
+            });
+            
+            var Controller = gu.controller.inherit(BaseController, {
+                filters: [
+                    function(req, res, next) {
+                        assert.equal(this.message, 'hello');
+                        assertions++;
+                        next();
+                    }
+                ]
+            });
+            
+            Controller.on('actionExecuting', function(req, res, next) {
+                assert.equal(this.message, 'hello');
+                assertions++;
+                next();
+            });
+            
+            Controller.on('actionExecuted', function(req, res, next) {
+                assert.equal(this.message, 'hello');
+                assertions++;
+                next();
+            });
+            
+            Controller.on('resultExecuting', function(req, res, next) {
+                assert.equal(this.message, 'hello');
+                assertions++;
+                next();
+            });
+            
+            Controller.on('resultExecuted', function(req, res, next) {
+                assert.equal(this.message, 'hello');
+                assertions++;
+                next();
+            });
+                
+            Controller.actions = {
+                index: {
+                    filters: [
+                        function(req, res, next) {
+                            assert.equal(this.message, 'hello');
+                            assertions++;
+                            next();
+                        }
+                    ],
+                    GET: function(req, res) {
+                        assert.equal(this.message, 'hello');
+                        assertions++;
+                        res.end();
+                    }
+                }
+            };
+            
+            var controller = new Controller();
+            var action = controller.actions['index'];
+            
+            routerUtils.executeController({
+                controller: controller,
+                action: action,
+                verb: 'GET',
+                req: req,
+                res: res,
+                next: next
+            },
+            function(next) {
+                
+                assert.equal(assertions, 12, 'Incorrect number of assertions have run');
+                
+                done();
+            });
+        });
+        
+        describe('#viewbag()', function() {
+            it('should set locals on HttpResponse object', function(done) {
+                var req = {};
+            
+                var res = {};
+                res.locals = {};
+                res.end = function() {};
+                
+                var next = function() {};
+                
+                var unitTestsRun = false;
+                
+                var Controller = gu.controller.create({
+                    filters: [
+                        function(req, res, next) {
+                            this.viewbag().message1 = 'Hello';
+                            next();
+                        }
+                    ]
+                });
+                
+                Controller.actions = {
+                    index: {
+                        GET: function(req, res) {
+                            this.viewbag().message2 = 'World';
+                            res.end();
+                        }
+                    }
+                };
+                
+                Controller.on('actionExecuted', function(req, res, next) {
+                    assert.ok(res.locals.viewbag, 'viewbag property is missing');
+                    assert.equal(res.locals.viewbag.message1, 'Hello', 'viewbag.message1 is missing or wrong value');
+                    assert.equal(res.locals.viewbag.message2, 'World', 'viewbag.message2 is missing or wrong value');
+                    
+                    unitTestsRun = true;
+                    
+                    next();
+                });
+                
+                var controller = new Controller();
+                var action = controller.actions['index'];
+                
+                routerUtils.executeController({
+                    controller: controller,
+                    action: action,
+                    verb: 'GET',
+                    req: req,
+                    res: res,
+                    next: next
+                },
+                function(next) {
+                    assert.ok(unitTestsRun);
+                    done();
+                });
+            });
+        });
     });
 });

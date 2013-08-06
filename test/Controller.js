@@ -251,36 +251,4 @@ describe('Controller', function() {
             controller.actions.index.GET();
         });
     });
-    
-    describe('#viewbag()', function() {
-        it('should set locals on HttpResponse object', function() {
-             var res = {};
-             res.locals = {};
-             
-             var Controller = gu.controller.create({
-                 filters: [
-                    function(req, res, next) {
-                        this.viewbag(res).message1 = 'Hello';
-                    }
-                 ]
-             });
-             
-             Controller.actions = {
-                 index: {
-                     GET: function(req, res) {
-                         this.viewbag(res).message2 = 'World';
-                     }
-                 }
-             };
-             
-             var controller = new Controller();
-                     
-             controller.filters[0].call(controller, null, res);
-             controller.actions.index.GET.call(controller, null, res);
-             
-             assert.ok(res.locals.viewbag, 'viewbag property is missing');
-             assert.equal(res.locals.viewbag.message1, 'Hello', 'viewbag.message1 is missing or wrong value');
-             assert.equal(res.locals.viewbag.message2, 'World', 'viewbag.message2 is missing or wrong value');
-        });
-    });
 });
