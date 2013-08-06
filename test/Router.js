@@ -9,6 +9,10 @@ describe('Router', function() {
     it('should set properties on express app instance', function() {
 
         var app = {};
+        app.get = function() {
+            return 'html';
+        }
+        
         var rootDir = __dirname;
         var controllersDir = path.join(rootDir, 'controllers');
         var viewsDir = path.join(rootDir, 'views');
