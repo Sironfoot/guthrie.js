@@ -16,7 +16,6 @@ as nouns for something (product, category, order) and actions as verbs (show, ed
 Add it to an existing Express.js app:
 
 ````javascript
-
 var express = require('express');
 var gu = require('guthrie');
 
@@ -42,12 +41,11 @@ http.createServer(app).listen(3000);
 This will create routes for two controllers, 'home' and 'product'. Each can have one
 or more 'actions'. For instance, we have mapped the '/' path to the 'home' controller and the 'index' action.
 
-Lets create the home Controller. By convension, controllers must appear in the '/controllers' directory in your app's
-root directory, and the file name must be affixed with 'Controller.js'. So create a 'homeController.js' file in the
+By convension, controllers must appear in the '/controllers' directory in your app's
+root directory, and the file name must be affixed with 'Controller.js'. So lets create a 'homeController.js' file in the
 '/controllers' directory.
 
 ````javascript
-
 var gu = require('guthrie');
 
 var homeController = gu.controller.create();
@@ -66,6 +64,8 @@ module.exports = homeController;
 
 res.view() is a helper method that works the same as res.render(), except it assumes the view is located in
 '/views/controllerName/actionName'. So in our above example, it will look for '/views/home/index.html'.
+
+We're also creating a GET function for a GET request, but POST, PUT, and DELETE are also supported.
 
 ## More on Routes
 
@@ -87,14 +87,13 @@ match all your scripts and stylesheets, so remember to change the order:
     app.use(express.static(path.join(__dirname, 'public')));
     app.use(app.router);
 
-## Actions Filters
+## Action Filters
 
 Action Filters provide reusable functionality for common tasks (checking authorisation for instance).
 They can be placed on controllers and will run for all actions in that controller, or on individual
 actions. To place on a controller:
 
 ````javascript
-
 var accountController = gu.controller.create({
     filters: [ filters.mustBeLoggedIn ]
 });
@@ -103,7 +102,6 @@ var accountController = gu.controller.create({
 To place on an individual action:
 
 ````javascript
-
 var accountController = gu.controller.create();
 accountController.actions = {
     
@@ -128,7 +126,6 @@ accountController.actions = {
 Lets look at the implentation for 'mustBeLoggedIn':
 
 ````javascript
-
 exports.mustBeLoggedIn = function(req, res, next) {
     
     if (!res.session.loggedInUser) {
@@ -159,7 +156,6 @@ A 'result' is defined as any method on the HttpResponse object that sends a resu
 for instance res.end(), res.render(), res.view(), res.redirect() etc.
 
 ````javascript
-
 var homeController = gu.controller.create();
 
 homeController.on('actionExecuting', function(req, res, next) {
@@ -176,13 +172,11 @@ Like Filters, Events also behave like Connect middleware and are called in serie
 You can create a base controller, and have all other controllers inherit from it.
 
 ````javascript
-
 var baseController = new gu.controller.create();
 module.exports = baseController;
 ````
 
 ````javascript
-
 var baseController = require('./baseController');
 
 var homeController = new gu.controller.inherit(baseController, {
@@ -190,14 +184,13 @@ var homeController = new gu.controller.inherit(baseController, {
 });
 ````
 
-Controller Inheritance is useful for defining Events and Action Filters that run for all controller/actions in the
-application. For instance, it'a common for a web app to have a base/root layout template (or partial views) that contains
-some form of database derived output repeated for every page in the website. An ecommerce app might have a list of
+Controller inheritance is useful for defining Events and Filters that run for all controllers/actions in the
+application. For instance, it's common for a web app to have a base/root layout template (or partial views) that contains
+some form of database derived html output repeated for every page in the website. An ecommerce app might have a list of
 categories on the left side in every page for instance. Rather than repeat the categories data access code in every action,
 you could put it in the base controller:
 
 ````javascript
-
 var baseController = new gu.controller.create();
 
 baseController.on('actionExecuting', function(req, res, next) {
@@ -214,6 +207,50 @@ module.exports = baseController;
 
 If you ensure every controller inherits from base controller, every template in the web application
 will have a categories property pre-populated.
+
+
+## 'this' Context in Filters, Events and Actions
+
+Every Filter, Event and Action that is run has its 'this' context set to a special context object that persists
+for the entire running HTTP request. You can assign properties to this context and they will be available in subsequent
+filters/events/actions:
+
+````javascript
+homeController.on('actionExecuting', function(req, res, next) {
+    this.user = 'Scott Guthrie';
+    next();
+});
+
+homeController.actions = {
+    index: {
+        filters: [
+            function(req, res, next) {
+                this.clothing = 'Red polo shirt'
+                next();
+            }
+        ],
+        GET: function(req, res, next) {
+            console.log(this.user); // Outputs 'Scott Guthrie'
+            console.log(this.clothing); // Outputs 'Red polo shirt'
+            
+            res.end();
+        }
+    }
+};
+````
+
+The 'this' context also has a couple of helpful properties available:
+
+* this.app - returns the Express app instance for this request
+* this.viewbag() - helper function to attach properties to locals in templates
+
+The above viewbag() function could be called like so:
+
+    this.viewbag().user = 'Scott Guthrie';
+
+...and in a view/template:
+
+    <p class="user"><%= viewbag.user %></p>
 
 ## Coming Soon
 
