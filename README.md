@@ -208,6 +208,35 @@ module.exports = baseController;
 If you ensure every controller inherits from base controller, every template in the web application
 will have a categories property pre-populated.
 
+## Areas
+
+Just like in ASP.NET MVC, you can further divide up your code base into Areas. Areas are self contained units of functionality with their own set of controllers and views, usually accessible via a URL affix (e.g. /admin).
+
+Set-up an area in your app.js entry point:
+
+````javascript
+var router = new gu.Router(app, __dirname);
+
+var adminArea = router.createArea('admin');
+adminArea.mapRoute('/admin', { controller: 'home', action: 'index' });
+adminArea.mapRoute('/admin/:controller/:action?/:id?');
+
+// normal routes here (snip)...
+````
+
+We have defined an 'admin' area. By convention, guthrie.js will look for an /admin folder inside an /areas directory, and expect find a /controllers and /views directory. So your folder structure should look something like this:
+
+* app.js
+* areas
+	* area1
+		* controllers
+		* views
+	* area2
+		* controllers
+		* views
+
+Controllers are then defined in the normal way. Calling res.view()  will resolve to the correct template in the area's /views folder.
+
 
 ## 'this' Context in Filters, Events and Actions
 
@@ -252,11 +281,21 @@ The above viewbag() function could be called like so:
 
     <p class="user"><%= viewbag.user %></p>
 
+
+## Sample E-commerce App
+
+Located in /examples/ecommerce in this git repository, you'll find a sample ecommerce application implemented using express and guthrie.js.
+
+
 ## Coming Soon
 
-* Support for Areas
 * Web.config files
 * Model Validation (maybe)
+
+
+## About the name
+
+guthrie.js is named after Scott Guthrie who is the corporate vice president of the Microsoft Developer Division. He created the original ASP.NET MVC in Februrary 2007 while flying on plane to a conference on the East Coast of the USA.
 
 
 ## License 
