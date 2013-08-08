@@ -1,3 +1,4 @@
+global.__appRoot = __dirname;
 
 /* Module dependencies.*/
 var express = require('express');
@@ -47,7 +48,15 @@ router.mapRoute('/category/:categoryId', {
     action: 'show'
 });
 
+// Admin area
+var adminArea = router.createArea('admin');
+adminArea.mapRoute('/admin', { controller: 'home', action: 'index' });
+adminArea.mapRoute('/admin/:controller/:action?/:id?');
+
+// Catch all route
 router.mapRoute('/:controller/:action?/:id?');
+
+
 
 // Fire up server
 http.createServer(app).listen(app.get('port'), function(){
