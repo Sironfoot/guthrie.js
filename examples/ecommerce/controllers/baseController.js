@@ -1,5 +1,7 @@
-var gu = require('../../..');
-var db = require('../lib/db');
+'use strict';
+
+var gu = require(__appRoot + '/../..');
+var db = require(__appRoot + '/lib/db');
 
 var baseController = gu.controller.create();
 

@@ -1,3 +1,5 @@
+'use strict';
+
 var gu = require(__appRoot + '/../..');
 var baseController = require(__appRoot + '/controllers/baseController.js');
 var filters = require(__appRoot + '/lib/filters');

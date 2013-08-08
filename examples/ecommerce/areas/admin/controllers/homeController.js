@@ -1,3 +1,5 @@
+'use strict';
+
 var gu = require(__appRoot + '/../..');
 var adminBaseController = require('./adminBaseController.js')
 

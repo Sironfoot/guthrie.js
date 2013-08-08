@@ -1,8 +1,8 @@
 'use strict';
 
-var gu = require('../../..');
+var gu = require(__appRoot + '/../..');
 var baseController = require('./baseController');
-var db = require('../lib/db');
+var db = require(__appRoot + '/lib/db');
 
 var categoryController = gu.controller.inherit(baseController);
 

@@ -1,6 +1,6 @@
 'use strict';
 
-var gu = require('../../..');
+var gu = require(__appRoot + '/../..');
 var baseController = require('./baseController');
 
 var aboutController = gu.controller.inherit(baseController);

@@ -1,9 +1,9 @@
 'use strict';
 
-var gu = require('../../..');
+var gu = require(__appRoot + '/../..');
 var baseController = require('./baseController');
-var db = require('../lib/db');
-var filters = require('../lib/filters');
+var db = require(__appRoot + '/lib/db');
+var filters = require(__appRoot + '/lib/filters');
 
 var ordersController = gu.controller.inherit(baseController, {
     filters: [ filters.loginRequired ]
