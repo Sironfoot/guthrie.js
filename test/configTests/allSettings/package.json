@@ -1,0 +1,17 @@
+{
+    "name": "name",
+    "description": "description",
+    "keywords": [
+        "keyword1",
+        "keyword2"
+    ],
+    
+    "version": "version",
+    "author": "author",
+    
+    "contributors": [],
+    
+    "dependencies": {
+        "dependency1": "test1"
+    }
+}

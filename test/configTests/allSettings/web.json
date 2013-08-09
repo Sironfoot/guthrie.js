@@ -1,0 +1,35 @@
+{
+    "connectionStrings": [
+        { "test1": "connection1" },
+        { "test2", "connection2" }
+    ],
+
+    "appSettings": [
+        { "test1": "message1" },
+        { "test2": "message2" }
+    ],
+    
+    "guthrie": {
+    
+        "defaultDirectories" : {
+            "controllers": "/controllersTest",
+            "views": "/viewsTest",
+            "areas": "/areasTest",
+        },
+        
+        "viewsExt": "htmlTest",
+        "controllerNameAffix": "ControllerTest",
+        "defaultAction": "indexTest"
+    },
+    
+    "custom": {
+        "property1": "value1",
+        "property2": "value2",
+        
+        "property3": [
+            "arrayValue1",
+            "arrayValue2",
+            "arrayValue3"
+        ]
+    }
+}
