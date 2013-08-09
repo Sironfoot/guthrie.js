@@ -1,0 +1,24 @@
+{
+    "connectionStrings": [
+        { "mongo": "localhost:2000" },
+        { "redis", "redis:3000" }
+    ],
+
+    "appSettings": [
+        { "dbLocation": "/db" },
+        { "facebookApiKey": "123456XYZ" }
+    ],
+    
+    "guthrie": {
+    
+        "defaultDirectories" : {
+            "controllers": "/controllers",
+            "views": "/views",
+            "areas": "/areas",
+        }
+        
+        "viewsExt": "html",
+        
+        "controllerNameAffix": "Controller"
+    }
+}

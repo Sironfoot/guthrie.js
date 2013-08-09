@@ -1,0 +1,6 @@
+{
+    "connectionStrings": [
+        { "mongo": "staging:2000" },
+        { "redis", "staging/redis:3000" }
+    ]
+}

@@ -1,0 +1,6 @@
+{
+    "connectionStrings": [
+        { "mongo": "live:2000" },
+        { "redis", "live/redis:3000" }
+    ]
+}

@@ -56,8 +56,6 @@ adminArea.mapRoute('/admin/:controller/:action?/:id?');
 // Catch all route
 router.mapRoute('/:controller/:action?/:id?');
 
-
-
 // Fire up server
 http.createServer(app).listen(app.get('port'), function(){
     console.log('Express server listening on port ' + app.get('port'));
