@@ -1,11 +1,1 @@
-{
-    "connectionStrings": [
-        { "test1": "connection1" },
-        { "test2", "connection2" }
-    ],
-
-    "appSettings": [
-        { "test1": "message1" },
-        { "test2": "message2" }
-    ]
-}
+{"connectionStrings":{"test1":"connection1","test2":"connection2"},"appSettings":{"test1":"updatedMessage1","test2":"updatedMessage2"}}
