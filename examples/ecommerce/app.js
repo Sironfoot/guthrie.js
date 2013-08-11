@@ -31,6 +31,12 @@ if ('development' == app.get('env')) {
     app.use(express.errorHandler());
 }
 
+// Initialise config file
+gu.config.init({
+    app: app,
+    rootDir: __dirname
+});
+
 // Map routes
 var router = new gu.Router(app, __dirname, {
     controllersDir: path.join(__dirname, 'controllers'),

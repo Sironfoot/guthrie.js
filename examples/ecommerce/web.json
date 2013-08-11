@@ -1,21 +1,21 @@
 {
-    "connectionStrings": [
-        { "mongo": "localhost:2000" },
-        { "redis", "redis:3000" }
-    ],
+    "connectionStrings": {
+        "mongo": "localhost:2000",
+        "redis": "redis:3000"
+    },
 
-    "appSettings": [
-        { "dbLocation": "/db" },
-        { "facebookApiKey": "123456XYZ" }
-    ],
+    "appSettings": {
+        "dbLocation": "/db",
+        "facebookApiKey": "QWERTY123"
+    },
     
     "guthrie": {
     
         "defaultDirectories" : {
             "controllers": "/controllers",
             "views": "/views",
-            "areas": "/areas",
-        }
+            "areas": "/areas"
+        },
         
         "viewsExt": "html",
         

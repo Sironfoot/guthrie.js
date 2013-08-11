@@ -43,9 +43,9 @@ describe('Config', function() {
                     fs.writeFile(filePath, originalData, function(err) {
                         if (err) throw err;
                         
-                        dont(); 
+                        done(); 
                     });
-                }, 200);
+                }, 50);
             })
         });
     });
