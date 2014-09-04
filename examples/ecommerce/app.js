@@ -1,35 +1,45 @@
 global.__appRoot = __dirname;
 
-/* Module dependencies.*/
+// require express & guthrie
 var express = require('express');
-var http = require('http');
+var gu = require('../..');
+
+// require middleware
+var favicon = require('serve-favicon');
+var methodOverride = require('method-override');
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+var session = require('express-session')
+
+// other requires
 var path = require('path');
 var nunjucks = require('nunjucks');
-var gu = require('../..');
 
 var app = express();
 
 // Nunjucks view engine
-var env = new nunjucks.Environment(new nunjucks.FileSystemLoader('views'));
-env.express(app);
+nunjucks.configure('views', {
+    autoescape: true,
+    express: app
+});
 
-// all environments
-app.set('port', process.env.PORT || 3000);
+// configure middleware
 app.set('views', __dirname + '/views');
 app.set('rootDir', __dirname);
-app.use(express.favicon());
-app.use(express.logger('dev'));
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.bodyParser());
-app.use(express.methodOverride());
-app.use(express.cookieParser());
-app.use(express.session({secret: 'bicycle for the mind'}));
-app.use(app.router);
 
-// development only
-if ('development' == app.get('env')) {
-    app.use(express.errorHandler());
-}
+app.use(favicon(path.join(__dirname, 'public/favicon.ico')));
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(methodOverride('_method'))
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(session({
+    secret: 'bicycle for the mind',
+    resave: true,
+    saveUninitialized: true
+}));
+
 
 // Initialise config file
 gu.config.init({
@@ -63,6 +73,6 @@ adminArea.mapRoute('/admin/:controller/:action?/:id?');
 router.mapRoute('/:controller/:action?/:id?');
 
 // Fire up server
-http.createServer(app).listen(app.get('port'), function(){
-    console.log('Express server listening on port ' + app.get('port'));
+app.listen(3000, function(){
+    console.log('Express server listening on port: ' + 3000);
 });

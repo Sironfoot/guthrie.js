@@ -1,6 +1,7 @@
 {
     "name": "guthrie",
     "description": "A Node.js MVC framework built on Express.js, inspired by Microsoft's ASP.NET MVC.",
+    
     "keywords": [
         "guthrie",
         "mvc",
@@ -13,24 +14,26 @@
     
     "version": "0.2.0",
     "author": "Dominic Pettifer <sironfoot@gmail.com>",
-    
     "contributors": [],
     
     "dependencies": {
-        "express": "3.x"
+        "express": "^4.8.7"
     },
-    
     "devDependencies": {
+        "body-parser": "^1.7.0",
+        "cookie-parser": "^1.3.2",
+        "express-session": "^1.7.6",
+        "method-override": "^2.2.0",
         "mocha": "*",
-        "ejs": "*",
-        "nunjucks": "*"
+        "nunjucks": "*",
+        "serve-favicon": "^2.1.1"
     },
     
     "repository": {
-        "type" : "git",
-        "url" : "git://github.com/Sironfoot/guthrie.js.git"
+        "type": "git",
+        "url": "git://github.com/Sironfoot/guthrie.js.git"
     },
-    "license" : "MIT",
     
+    "license": "MIT",
     "main": "index"
 }
